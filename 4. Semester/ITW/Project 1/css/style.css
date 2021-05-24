@@ -1,0 +1,419 @@
+/* Author: Vojtech Fiala <xfiala61> */
+
+/* Velikosti, marginy*/
+body {
+    margin: 0;
+}
+
+.content {
+    max-width: 1200px;
+    margin: auto;
+    font-size: 14px;
+    line-height: 1.7;
+}
+
+/* Jednotlive prvky navigace */
+#nav-menu li {
+    display: inline;
+    margin-right: 20px;
+    letter-spacing: 0.05em;
+    font-size: 13px;
+    font-weight: normal;
+    font-family: Montserrat;
+    text-transform: uppercase;
+}
+
+/* Nastaveni formatu odkazu*/
+#nav-menu li > a:link, #nav-menu li > a:visited {
+    color: #bfbfbf;
+    text-decoration: none;
+}  
+
+/* Pri prejeti black */
+#nav-menu li > a:hover {
+    color: black;
+    text-decoration: none;
+}   
+
+/* zformatovani dokazu v logu*/
+#nav-logo > div > a:link, #nav-logo > div > a:visited{
+    text-decoration: none;
+    color: black;
+    font-size: 25px;
+    font-weight: bold;
+    font-family: Montserrat;
+}
+
+/* Z nejakeho duvodu to vypada hnusne a je tam whitespace, tohle ho fixne */
+#nav-logo {
+    line-height: 2;
+}
+
+/* Margin u navigace */
+#navigation {
+    padding-left: 20px;
+    padding-right: 20px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+/* Prvky navigace jako flexbox, at je muzu pozicovat */
+#navigation > .content {
+    display: flex;
+    justify-content: space-between;
+    align-items: right;
+}
+
+/* Nastaveni textu v obrazku */
+#header {
+    padding-left: 20px;
+    padding-right: 20px;
+    position: relative;
+}
+
+/* Zformatovani textu v obrazku */
+#header > .content > h1 {
+    color: white;
+    position: absolute;
+    font-weight: normal;
+    font-family: Montserrat;
+    font-size: 32px;
+    bottom: 20px;
+    margin-left: 20px;
+    width: auto;
+}
+
+/* Nastaveni spravne sirky obrazku */
+#header > .content > img {
+    width: 100%;
+}
+
+/* About sekce*/
+#about {
+    padding-left: 20px;
+    padding-right: 20px;
+    margin-top: 40px;
+    margin-bottom: 100px;
+}
+
+#about h2 {
+    font-size: 40px;
+    text-align: center;
+    font-family: Montserrat;
+    font-weight: normal;
+    color: #4d4d4d;
+}
+
+#about h3 {
+    font-size: 24px;
+    font-family: Montserrat;
+    font-weight: normal;
+    color: #4d4d4d;
+    margin-block-end: 0;
+}
+
+#about .content > p {
+    margin-block-start: 0;
+    text-align: center;
+    font-family: Merriweather;
+    color: #898989;
+    font-size: 18px;
+}
+
+/* 3 sloupce o stejne sirce */
+#about > .content > div {
+    display: flex;
+}
+
+/* 2. ma marginy */
+#about > .content > div > .about-item:nth-child(2) {
+    margin-right: 40px;
+    margin-left: 40px;
+}
+
+.about-item > img {
+    max-width: 100%;
+}
+
+.about-item p {
+    color: #bfbfbf;
+    font-size: 18px;
+    margin-block-start: 0;
+}
+
+#middle-sections {
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-top: 40px;
+    padding-bottom: 100px;
+    background-color: whitesmoke;
+}
+
+#middle-sections h2 {
+    font-size: 32px;
+    font-family: Montserrat;
+    font-weight: normal;
+    color: #4d4d4d;
+}
+
+#middle-sections h3 {
+    font-family: Montserrat;
+    font-weight: normal;
+    font-size: 24px;
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+
+/* 2 sloupce */
+#middle-sections > .content {
+    display: flex;
+}
+
+#news {
+    width: 60%;
+    margin-right: 40px;
+}
+
+.news-item > p {
+    margin-block-start: 0;
+}
+
+.news-item {
+    margin-bottom: 20px;
+    font-size: 18px;
+    border-bottom: 1px solid #e3e3e3;
+    color: #898989;
+}
+
+/* Nastaveni formatu odkazu*/
+.news-item h3 > a:link, .news-item h3 > a:visited {
+    color: steelblue ;
+    text-decoration: none;
+}  
+
+/* Pri prejeti black */
+.news-item h3 > a:hover {
+    color: black;
+    text-decoration: none;
+}  
+
+.news-date {
+    font-size: 12px;
+    text-transform: uppercase;
+    color: #bfbfbf;
+}
+
+#news-btn {
+    background-color: lightsteelblue;
+    text-transform: uppercase;
+    font-family: Montserrat;
+    letter-spacing: 0.15em;
+    padding: 11px 25px;
+    text-align: center;
+    display: inline-block;
+    font-size: 13px;
+}
+
+#news-btn > a:link, #news-btn > a:visited {
+    font-weight: bold;
+    color: steelblue ;
+    text-decoration: none;
+}  
+
+/* Pri prejeti black */
+#news-btn > a:hover {
+    font-weight: bold;
+    color: black;
+    text-decoration: none;
+} 
+
+#references {
+    width: 40%;
+}
+
+#references > img {
+    float: left;
+    border-radius: 50%;
+    width: 120px;
+    margin-right: 20px;
+}
+
+blockquote {
+    color: #4d4d4d;
+    font-style: italic;
+    font-family: Merriweather;
+    margin-bottom: 40px;
+    margin-left: 0px;
+}
+
+blockquote > p {
+    font-size: 18px;
+}
+
+.ref-author {
+    font-size: 14px;
+    color: #bfbfbf;
+}
+
+#steps {
+    padding-left: 20px;
+    padding-right: 20px;
+    margin-top: 40px;
+    margin-bottom: 100px;
+}
+
+#steps > .content {
+    display: flex;
+}
+
+.steps-item > p {
+    font-family: Merriweather;
+    color: #898989;
+}
+
+.steps-item h3, .steps-item p, .steps-item span {
+    margin-left: 95px;
+}
+
+/* 2. ma marginy */
+.steps-item:nth-child(2) {
+    margin-right: 40px;
+    margin-left: 40px;
+}
+
+i {
+    float: left;
+    font-family: Awesome;
+    font-size: 60px;
+    color: lightsteelblue;
+}
+
+.steps-more {
+    font-family: Montserrat;
+    text-transform: uppercase;
+    font-size: 11px;
+}
+
+#steps h3 {
+    color: #4d4d4d;
+    text-transform: uppercase;
+    font-family: Montserrat;
+    font-size: 14px;
+}
+
+.steps-more > a:link, .steps-more > a:visited {
+    font-weight: bold;
+    color: steelblue ;
+    text-decoration: none;
+}  
+
+/* Pri prejeti black */
+.steps-more > a:hover {
+    font-weight: bold;
+    color: black;
+    text-decoration: none;
+} 
+
+#contact {
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-top: 40px;
+    padding-bottom: 100px;
+    background-color: #262626; 
+}
+
+#contact > .content {
+    display: flex;
+}
+
+.contact-item {
+    flex: 1;
+}
+
+.contact-item:nth-child(2) {
+    padding-left: 40px;
+    padding-right: 40px;
+}
+
+.contact-item > p {
+    color: #898989;
+    font-family: Merriweather;
+}
+
+#contact h3 {
+    margin-block-start: 0;
+    font-size: 24px;
+    font-family: Montserrat;
+    font-weight: normal;
+    color: white;
+}
+
+#contact ul {
+    list-style: none;
+    padding-left: 0;
+}
+
+#contact li {
+    display: flex;
+    margin-bottom: 3px;
+    font-weight: normal;
+    font-family: Montserrat;
+    text-transform: uppercase;
+}
+
+/* Nastaveni formatu odkazu*/
+#contact li > a:link, #contact li > a:visited {
+    color: steelblue;
+    text-decoration: none;
+}  
+
+/* Pri prejeti black */
+#contact li > a:hover {
+    color: white;
+    text-decoration: none;
+}  
+
+#email-form {
+    font-family: Montserrat;
+    border-radius: 4px;
+    border: 1px solid;
+    font-size: 18px;
+    width: 90%;
+    height: 54px;
+    margin-bottom: 4px;
+}
+
+#submit-btn {
+    text-transform: uppercase;
+    font-weight: bold;
+    border: 1px solid;
+    border-color: steelblue;
+    background-color: steelblue;
+    font-family: Montserrat;
+    letter-spacing: 0.15;
+    padding: 14px 15px;
+    text-align: center;
+    color: white;
+    display: inline-block;
+    border-radius: 4px;
+    font-size: 13px;
+}
+
+#email-form:invalid {
+    color: red;
+}
+
+#footer-note {
+    width: auto;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    background-color: #1a1a1a;
+}
+
+#footer-note span {
+    color: #898989;
+    font-family: Merriweather;
+    font-size: 12px;
+}
