@@ -1,4 +1,5 @@
 # IZP
+Hodnocení předmětu: 8/10
 
 ## Výsledek: 1. pokus -- 76/100 -> C
 
@@ -10,3 +11,6 @@ Fyzikální výpočty.
 
 ## 3. Projekt - 5,2/10
 Průchod bludištěm za pomoci left-hand nebo right-hand metody.
+
+## 4. Projekt - 4/4
+Dokumentace.
