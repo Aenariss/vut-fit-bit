@@ -1,0 +1,325 @@
+ 
+Jednosměrně vázaný lineární seznam
+==================================
+
+[TEST01]
+Inicializace seznamu
+~~~~~~~~~~~~~~~~~~~~
+-----------------
+-----------------
+
+[TEST02]
+Pokus o volání CopyFirst nad prázdným seznamem => chyba
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+*ERROR* The program has performed an illegal operation.
+Operace CopyFirst volala funkci Error.
+
+[TEST03]
+Zavoláme 4x operaci InsertFirst.
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+-----------------
+	 1
+-----------------
+-----------------
+	 2
+	 1
+-----------------
+-----------------
+	 3
+	 2
+	 1
+-----------------
+-----------------
+	 4
+	 3
+	 2
+	 1
+-----------------
+
+[TEST04]
+Seznam je neaktivní -- ověříme si to voláním funce Active.
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Operace Active vrací 0.
+
+[TEST05]
+Otestujeme funkci First při neaktivním seznamu a funkci Active.
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+-----------------
+	 4	 <= toto je aktivní prvek 
+	 3
+	 2
+	 1
+-----------------
+Operace Active vrací 1.
+
+[TEST06]
+Test funkce Copy při aktivitě na prvním prvku
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Operace Copy vrací obsah 4.
+
+[TEST07]
+Test funkce Succ -- voláme 3x, aktivita bude na posledním prvku.
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+-----------------
+	 4
+	 3	 <= toto je aktivní prvek 
+	 2
+	 1
+-----------------
+-----------------
+	 4
+	 3
+	 2	 <= toto je aktivní prvek 
+	 1
+-----------------
+-----------------
+	 4
+	 3
+	 2
+	 1	 <= toto je aktivní prvek 
+-----------------
+Operace Active vrací 1.
+
+[TEST08]
+Aktualizujeme obsah aktivního prvku.
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+-----------------
+	 4
+	 3
+	 2
+	 10	 <= toto je aktivní prvek 
+-----------------
+Operace Active vrací 1.
+Operace Copy vrací obsah 10.
+
+[TEST09]
+Provedeme ještě jednou Succ -- aktivita se ztratí.
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+-----------------
+	 4
+	 3
+	 2
+	 10
+-----------------
+Operace Active vrací 0.
+
+[TEST10]
+Pokusíme se o aktualizaci při neaktivním seznamu => nic
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+-----------------
+	 4
+	 3
+	 2
+	 10
+-----------------
+Operace Active vrací 0.
+
+[TEST11]
+Pokus o Copy při neaktivním seznamu => ošetřená chyba
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+*ERROR* The program has performed an illegal operation.
+Operace Copy volala funkci Error.
+
+[TEST12]
+Operace Succ při neaktivním seznamu nesmí zhavarovat.
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+-----------------
+	 4
+	 3
+	 2
+	 10
+-----------------
+Operace Active vrací 0.
+
+[TEST13]
+Použití operace CopyFirst při neaktivním seznamu
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Operace CopyFirst vrací obsah 4.
+
+[TEST14]
+Vyzkoušíme operaci DeleteFirst při neaktivním seznamu,
+přičemž smazaný prvek zase vrátíme zpátky do seznamu.
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+-----------------
+	 3
+	 2
+	 10
+-----------------
+-----------------
+	 4
+	 3
+	 2
+	 10
+-----------------
+Operace Active vrací 0.
+
+[TEST10]
+Operace First nastaví aktivitu na první prvek.
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+-----------------
+	 4	 <= toto je aktivní prvek 
+	 3
+	 2
+	 10
+-----------------
+Operace Active vrací 1.
+
+[TEST11]
+DeleteFirst aktivního prvku povede ke ztrátě aktivity.
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+-----------------
+	 3
+	 2
+	 10
+-----------------
+Operace Active vrací 0.
+
+[TEST12]
+Užitím operací First a Succ nastavíme aktivitu na konec seznamu.
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+-----------------
+	 3	 <= toto je aktivní prvek 
+	 2
+	 10
+-----------------
+-----------------
+	 3
+	 2	 <= toto je aktivní prvek 
+	 10
+-----------------
+-----------------
+	 3
+	 2
+	 10	 <= toto je aktivní prvek 
+-----------------
+Operace Active vrací 1.
+
+[TEST13]
+Operace PostDelete při aktivitě na posledním prvku nedělá nic.
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+-----------------
+	 3
+	 2
+	 10	 <= toto je aktivní prvek 
+-----------------
+Operace Active vrací 1.
+
+[TEST14]
+Nastavíme aktivitu na začátek a dvakrát zavoláme PostDelete.
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+-----------------
+	 3	 <= toto je aktivní prvek 
+	 2
+	 10
+-----------------
+Operace Active vrací 1.
+-----------------
+	 3	 <= toto je aktivní prvek 
+	 10
+-----------------
+-----------------
+	 3	 <= toto je aktivní prvek 
+-----------------
+Operace Active vrací 1.
+
+[TEST15]
+Otestujeme InsertFirst při seznamu s jediným prvkem, nastavíme
+aktivitu na nově vložený prvek a opět posuneme aktivitu na konec
+seznamu.
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+-----------------
+	 101
+	 3	 <= toto je aktivní prvek 
+-----------------
+-----------------
+	 101	 <= toto je aktivní prvek 
+	 3
+-----------------
+-----------------
+	 101
+	 3	 <= toto je aktivní prvek 
+-----------------
+Operace Active vrací 1.
+
+[TEST16]
+Operací PostInsert vložíme nový prvek za poslední prvek seznamu.
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+-----------------
+	 101
+	 3	 <= toto je aktivní prvek 
+	 102
+-----------------
+Operace Active vrací 1.
+
+[TEST17]
+Nastavíme aktivitu na první prvek seznamu a vyzkoušíme PostInsert.
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+-----------------
+	 101	 <= toto je aktivní prvek 
+	 3
+	 102
+-----------------
+-----------------
+	 101	 <= toto je aktivní prvek 
+	 103
+	 3
+	 102
+-----------------
+Operace Active vrací 1.
+
+[TEST18]
+Otestujeme funkčnost operace DisposeList.
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+-----------------
+-----------------
+
+[TEST24]
+
+Následuje testování operací při prázdném seznamu
+================================================
+Operace Active vrací 0.
+
+[TEST25]
+DeleteFirst při prázdném seznamu => nic
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+-----------------
+-----------------
+
+[TEST26]
+Test PostDelete při prázdném seznamu => nic 
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ 
+-----------------
+-----------------
+
+[TEST27]
+Ještě jednou DisposeList => žádná změna
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+-----------------
+-----------------
+
+[TEST28]
+First ani PostInsert nad prázdným seznamem nic nedělá.
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+-----------------
+-----------------
+-----------------
+-----------------
+
+[TEST29]
+Copy a CopyFirst nad prázdným seznamem => ošetřená chyba
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+*ERROR* The program has performed an illegal operation.
+Operace Copy volala funkci Error.
+*ERROR* The program has performed an illegal operation.
+Operace CopyFirst volala funkci Error.
+
+[TEST30]
+Actualize ani Succ by neměly mít nad prázdným seznamem žádny efekt.
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+-----------------
+-----------------
+-----------------
+-----------------
+Operace Active vrací 0.
+
+----------------------- konec příkladu c201 -------------------------

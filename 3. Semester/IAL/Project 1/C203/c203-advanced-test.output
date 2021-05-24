@@ -1,0 +1,239 @@
+ 
+**************************************************
+* C203: Queue implemented using an array         *
+* Advamced testing script (c203-advanced-test.c) *
+**************************************************
+* The explanation:                               *
+* ~~~~~~~~~~~~~~~~                               *
+* ? - not used yet                               *
+* F - Front                                      *
+* B - Back                                       *
+* E - Empty (F == B)                             *
+**************************************************
+
+[TEST01] queue initialization
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+*********
+^        
+E        
+
+[TEST02] We try queueEmpty and queueFull over the empty queue.
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Function queueEmpty returned 'TRUE'.
+Fucntion queueFull returned 'FALSE'.
+
+[TEST03] queueFront, queueGet, and queueRemove should cause handled errors.
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Queue error: FRONT
+Queue error: GET
+Queue error: REMOVE
+
+*********
+^        
+E        
+
+[TEST04] We check queueEmpty and queueFull.
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Function queueEmpty returned 'TRUE'.
+Fucntion queueFull returned 'FALSE'.
+
+[TEST05] We put 'Ciao!' into the queue using queueUp.
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Ciao!****
+^    ^   
+F    B   
+
+[TEST06] Functions queueEmpty as well as queueFull should return FALSE now.
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Function queueEmpty returned 'FALSE'.
+Fucntion queueFull returned 'FALSE'.
+
+[TEST07] Function queueFront should always return the same value.
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Function queueFront returned value 'C'.
+Function queueFront returned value 'C'.
+
+Ciao!****
+^    ^   
+F    B   
+
+[TEST08] Let's examine the difference between queueRemove and queueGet.
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Function queueGet returned value 'i'.
+
+Ciao!****
+  ^  ^   
+  F  B   
+
+[TEST09] After three queueGet the queue should be empty.
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Function queueGet returned value 'a'.
+Function queueGet returned value 'o'.
+Function queueGet returned value '!'.
+Function queueEmpty returned 'TRUE'.
+Fucntion queueFull returned 'FALSE'.
+
+Ciao!****
+     ^   
+     E   
+
+[TEST10] We put 1, 2, and 3 to the queue using QueueUp and check the result.
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Function queueFront returned value '1'.
+Function queueEmpty returned 'FALSE'.
+Fucntion queueFull returned 'FALSE'.
+
+Ciao!123*
+     ^  ^
+     F  B
+
+[TEST11] After removing three elements using queueGet, the queue should be empty.
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Function queueGet returned value '1'.
+Function queueGet returned value '2'.
+Function queueGet returned value '3'.
+Queue error: FRONT
+Function queueEmpty returned 'TRUE'.
+Fucntion queueFull returned 'FALSE'.
+
+Ciao!123*
+        ^
+        E
+
+[TEST12] Additional queueUp should move to b_index possition 0.
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Function queueFront returned value '4'.
+Function queueEmpty returned 'FALSE'.
+Fucntion queueFull returned 'FALSE'.
+
+Ciao!1234
+^       ^
+B       F
+
+[TEST13] After queueGet, the indexes should be the same as after queueInit.
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Function queueGet returned value '4'.
+Queue error: FRONT
+Function queueEmpty returned 'TRUE'.
+Fucntion queueFull returned 'FALSE'.
+
+Ciao!1234
+^        
+E        
+
+[TEST14] We use queueUp eight times to fill up the queue.
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Function queueFront returned value 'A'.
+Function queueEmpty returned 'FALSE'.
+Fucntion queueFull returned 'TRUE'.
+
+ABCDEFGH4
+^       ^
+F       B
+
+[TEST15] Addition queueUp should cause hadled error.
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Queue error: UP
+Function queueFront returned value 'A'.
+Function queueEmpty returned 'FALSE'.
+Fucntion queueFull returned 'TRUE'.
+
+ABCDEFGH4
+^       ^
+F       B
+
+[TEST16] Many couples of queueUp and queueRemove operations.
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+tuvwxyzrs
+       ^^
+       BF
+Function queueEmpty returned 'FALSE'.
+Fucntion queueFull returned 'TRUE'.
+
+[TEST17] We create the queue of the size 2.
+===========================================
+
+***
+^  
+E  
+
+[TEST18] Let's test all operations which should not change empty queue.
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Function queueEmpty returned 'TRUE'.
+Fucntion queueFull returned 'FALSE'.
+Queue error: FRONT
+Queue error: GET
+Queue error: REMOVE
+
+***
+^  
+E  
+
+[TEST19] Calling queueUp three times should cause error.
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Queue error: UP
+Function queueEmpty returned 'FALSE'.
+Fucntion queueFull returned 'TRUE'.
+Function queueFront returned value '1'.
+Function queueGet returned value '1'.
+
+12*
+ ^^
+ FB
+
+[TEST20] Calling queueRemove followed by queueGet should cause error.
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Queue error: GET
+Function queueEmpty returned 'TRUE'.
+Fucntion queueFull returned 'FALSE'.
+Queue error: FRONT
+
+12*
+  ^
+  E
+
+[TEST21] We check the nextIndex function by two queueUp and queueGet.
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Function queueGet returned value '3'.
+Function queueGet returned value '4'.
+Function queueEmpty returned 'TRUE'.
+Fucntion queueFull returned 'FALSE'.
+Queue error: FRONT
+
+423
+ ^ 
+ E 
+
+[TEST22] And finally, we create the queue of size 0.
+====================================================
+
+*
+^
+E
+Function queueEmpty returned 'TRUE'.
+Fucntion queueFull returned 'TRUE'.
+Queue error: FRONT
+Queue error: GET
+Queue error: REMOVE
+
+*
+^
+E
+Queue error: UP
+Function queueEmpty returned 'TRUE'.
+Fucntion queueFull returned 'TRUE'.
+Queue error: FRONT
+Queue error: GET
+Queue error: REMOVE
+
+*
+^
+E
+Function queueEmpty returned 'TRUE'.
+Fucntion queueFull returned 'TRUE'.
+Queue error: FRONT
+
+******* The end of Advanced Tests (c203-advanced-test.c) *******
