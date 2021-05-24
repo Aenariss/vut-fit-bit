@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<project outputprefix="vigenere">
+
+    <!--  Project description -->
+    <name>Vigenèrova šifra</name>
+    <author>Michal Bidlo</author>
+    <authoremail>bidlom@fit.vut.cz</authoremail>
+    <description>Simulace Vigenèrovy šifry ve VHDL</description>
+
+    <!--  MCU part -->
+    <mcu>
+        <file>main.c</file>
+    </mcu>
+
+    <!-- FPGA part -->
+    <fpga toplevelentity="vigenere" ucffile="fpga/vigenere.ucf" architecture="none">
+        <file>vigenere.vhd</file>
+    </fpga>
+
+</project>
