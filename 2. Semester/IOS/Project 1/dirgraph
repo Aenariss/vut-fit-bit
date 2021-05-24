@@ -1,0 +1,227 @@
+#!/bin/sh
+export POSIXLY_CORRECT=yes
+ND=1                                                                            #Number of Directories... always at least 1 (the current one)
+NF=0                                                                            #Number of files
+directory=$(pwd)                                                                #Working directory
+tmp=$directory                                                                  #Save the current directory
+Size1=0 #100B
+Size2=0 #1KiB
+Size3=0 #10KiB
+Size4=0 #100KiB
+Size5=0 #1MiB
+Size6=0 #10MiB
+Size7=0 #100MiB
+Size8=0 #1GiB
+Size9=0 #>1GiB
+regex=0                                                           
+skip=0                                                                  
+normalize=0
+permission=0
+
+unknown_param()
+{
+    echo "Usage: dirgraph [-i FILE_ERE] [-n] [DIR]" >&2                           #Wrong parameter, print to stderr and exit
+    exit 1
+}
+
+while getopts "i: n" argument;                                                    #Parse the arguments with getopts
+do
+    case "${argument}" in
+        i)
+            regex=1
+            FILE_ERE=$OPTARG
+            ;;
+        n) 
+            normalize=1
+            ;;
+        *) 
+            unknown_param
+            ;;
+    esac
+done
+
+shift $((OPTIND-1))
+
+if [ $# -eq 1 ]                                                                  #If we have only 1 argument left (or started with only 1)
+    then                                                                         #It's the name of the directory the script's gonna run in
+    directory=$1
+    tmp=$1
+fi
+
+if [ ! -d "$directory" ]                                                         #If the directory doesn't exist, print it on stderr and quit
+    then
+    echo "Given directory does not exist" >&2
+    exit 1
+fi
+
+count() 
+{
+for file in "$directory"/* "$directory"/.*[!.]*;                                #Go through all files in the directory, including hidden ones
+do  
+    if [ "$regex" -eq 1 ]
+        then
+        testdir=$(echo "$directory" | grep -c "$FILE_ERE")                      #Check if given regex matches anything in the root directory
+        if [ "$testdir" = 1 ]                                                   #Check the result
+            then
+            echo "Regexp can not be a part of the root directory" >&2           #If there is any match with current directory, stderr, exit
+            exit 1
+            else
+            skip=0
+            check=$(echo "$file" | sed "s/$FILE_ERE//g")                        #Remove the regex from a temporary filename
+            if [ "$file" != "$check" ]                                          #If the original filename doesn't match the new one, it contains 
+                then                                                            #the regex and we want to skip it
+                skip=1
+            fi
+        fi
+    fi
+
+    if [ "$skip" -eq 1 ] 
+        then
+        continue
+        else
+            if [ -f "$file" ]
+                then
+                if [ ! -r "$file" ]                                             #Check if user has the rights to read the file (to get its size)
+                    then
+                    permission=$((permission+1))                                #If he does not, print error on stderr
+                    echo "Insufficient permission to read the file $file" >&2
+                else
+                    size=$(wc -c < "$file")                                     #Get the file size assign the file to the correct size
+                    if [ "$size" -lt 100 ]
+                        then
+                        Size1=$((Size1+1))
+                    elif [ "$size" -lt 1024 ]
+                        then
+                        Size2=$((Size2+1))
+                    elif [ "$size" -lt 10240 ] 
+                        then
+                        Size3=$((Size3+1))
+                    elif [ "$size" -lt 102400 ] 
+                        then
+                        Size4=$((Size4+1))
+                    elif [ "$size" -lt 1048576 ] 
+                        then
+                        Size5=$((Size5+1))
+                    elif [ "$size" -lt 10485760 ]
+                        then
+                        Size6=$((Size6+1))
+                    elif [ "$size" -lt 104857600 ] 
+                        then
+                        Size7=$((Size7+1))
+                    elif [ "$size" -lt 1073741824 ] 
+                        then
+                        Size8=$((Size8+1))
+                    elif [ "$size" -ge 1073741824 ] 
+                        then
+                        Size9=$((Size9+1))
+                    fi
+                    NF=$((NF+1))
+                fi
+            elif [ -d "$file" ]
+                then
+                ND=$((ND+1))
+                directory=$file
+                count
+            fi
+    fi
+done
+directory=$tmp
+}
+
+count
+
+normalization()
+{
+    length=67 #79 - 12
+    maxlength=0
+    if [ -t 1 ]
+        then
+        length=$(tput cols)
+        length=$((length-13)) #-1 -12
+    fi
+
+    if [ $Size2 -lt $Size1 ]
+        then 
+        maxlength=$Size1
+    fi
+    if [ $maxlength -lt $Size3 ]
+        then 
+        maxlength=$Size3
+    fi
+    if [ $maxlength -lt $Size4 ]
+        then
+        maxlength=$Size4
+    fi
+    if [ $maxlength -lt $Size5 ]
+        then
+        maxlength=$Size5
+    fi
+    if [ $maxlength -lt $Size6 ]
+        then
+        maxlength=$Size6
+    fi
+    if [ $maxlength -lt $Size7 ]
+        then
+        maxlength=$Size7
+    fi
+    if [ $maxlength -lt $Size8 ]
+        then
+        maxlength=$Size8
+    fi
+    if [ $maxlength -lt $Size9 ]
+        then
+        maxlength=$Size9
+    fi
+    if [ $maxlength -lt $Size2 ]
+        then
+        maxlength=$Size2
+    fi
+    
+    if [ $maxlength -gt $length ]
+    then    
+        Size1=$((length*Size1/maxlength))
+        Size2=$((length*Size2/maxlength))
+        Size3=$((length*Size3/maxlength))
+        Size4=$((length*Size4/maxlength))
+        Size5=$((length*Size5/maxlength))
+        Size6=$((length*Size6/maxlength))
+        Size7=$((length*Size7/maxlength))
+        Size8=$((length*Size8/maxlength))
+        Size9=$((length*Size9/maxlength))
+    fi
+}
+
+if [ $normalize -eq 1 ]
+    then
+    normalization
+fi
+    
+hashtag() 
+{
+    amount=$1
+    if [ "$amount" -ne 0 ]
+        then
+            printf "%0.s#" $(seq 1 "$amount")
+    fi
+    printf "\n"
+}
+
+echo "Root directory: $directory"
+echo "Directories: $ND"
+echo "All files: $NF"
+echo "File size histogram:"
+printf "  <100 B  : "; hashtag $Size1
+printf "  <1 KiB  : "; hashtag $Size2
+printf "  <10 KiB : "; hashtag $Size3
+printf "  <100 KiB: "; hashtag $Size4
+printf "  <1 MiB  : "; hashtag $Size5
+printf "  <10 MiB : "; hashtag $Size6
+printf "  <100 MiB: "; hashtag $Size7
+printf "  <1 GiB  : "; hashtag $Size8
+printf "  >=1 GiB : "; hashtag $Size9
+printf ""
+
+if [ $permission -gt 0 ]
+    then
+    exit 1
+fi
