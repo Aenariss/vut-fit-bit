@@ -1,0 +1,271 @@
+\documentclass[a4paper, 11pt]{article}
+\usepackage[left=2cm, top=3cm, text={17cm, 24cm}]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage{times}
+\usepackage[czech]{babel}
+\usepackage[unicode]{hyperref}
+\usepackage{multirow}
+\usepackage[czech, ruled, linesnumbered, noline, longend]{algorithm2e}
+\usepackage{graphicx}
+\usepackage{pdflscape}
+
+\urlstyle{same}
+
+\begin{document}
+
+	\begin{titlepage}
+		\begin{center}
+			{\Huge\textsc{
+				Vysoké učení technické v Brně\\[0.3em]}}
+				{\huge\textsc{Fakulta informačních technologií
+			}}
+			\\
+			\vspace{\stretch{0.382}}
+			{\LARGE
+				 Typografie a publikování -- 3. projekt\\[0.3em]}
+				 {\Huge{Tabulky a obrázky}}
+			\vspace{\stretch{0.618}}
+		\end{center}
+		{\Large
+		    \today
+			\hfill
+			Vojtěch Fiala
+		}
+	\end{titlepage}
+
+    \section{Úvodní strana}
+    Název práce umístěte do zlatého řezu a nezapomeňte uvést dnešní datum a vaše jméno a příjmení.
+    
+    \section{Tabulky}
+    Pro sázení tabulek můžeme použít buď prostředí \verb! tabbing ! nebo prostředí \verb! tabular!.
+    
+    \subsection{Prostředí \texttt{ tabbing}}
+    Při použití \verb! tabbing ! vypadá tabulka následovně:
+
+    \begin{tabbing}
+    Vodní melouny \quad  \= \textbf{Cena} \quad \= \textbf{Množství} \kill
+    \textbf{Ovoce} \> \textbf{Cena} \> \textbf{Množství} \\
+    Jablka \> 25,90 \> 3 kg \\
+    Hrušky \> 27,40 \> 2,5 kg \\
+    Vodní melouny \> 35,- \> 1 kus \\
+    \end{tabbing}
+    Toto prostředí se dá také použít pro sázení algoritmů, ovšem vhodnější je použít prostředí \verb! algorithm ! nebo \verb!algorithm2e ! (viz sekce \ref{sekce_3}).
+	
+	\subsection{Prostředí \texttt{ tabular}}
+	Další možností, jak vytvořit tabulku, je použít prostředí \verb! tabular!. Tabulky pak budou vypadat takto\footnote{Kdyby byl problem s \texttt{ cline}, zkuste se podívat třeba sem: \url{http://www.abclinuxu.cz/tex/poradna/show/325037}.}:
+    
+    \bigskip
+    
+    \begin{table}[h]
+        \catcode`\-=12
+        \centering
+        \begin{tabular}{|c|c|c|}
+            \hline
+            & \multicolumn{2}{c|}{\textbf{Cena}} \\ \cline{2-3}
+            \textbf{Měna} & \textbf{nákup} & \textbf{prodej} \\ \hline
+            EUR & 25,475 & 27,045 \\
+            GBP & 28,835 & 30,705 \\
+            USD & 22,943 & 24,357 \\ \hline
+        \end{tabular}
+    \caption{Tabulka kurzů k dnešnímu dni}
+    \label{table_1}
+    \end{table}
+    
+    \bigskip
+    
+    \begin{table}[h]
+        \centering
+        \catcode`\-=12
+        \begin{tabular}{|c|c|}
+            \hline
+            $A$ & $\neg{A}$ \\ \hline
+            \textbf{P} & N \\ \hline
+            \textbf{O} & O \\ \hline
+            \textbf{X} & X \\ \hline
+            \textbf{N} & P \\ \hline
+        \end{tabular}
+        \begin{tabular}{|c|c|c|c|c|c|}
+            \hline
+            \multicolumn{2}{|c|}{\multirow{2}{*}{$A \wedge B$}} & \multicolumn{4}{c|}{$B$} \\ \cline{3-6}
+            \multicolumn{2}{|c|}{} & \textbf{P} & \textbf{O} & \textbf{X} & \textbf{N} \\ \hline
+            \multirow{4}{*}{$A$} & \textbf{P} & P & O & X & N \\ \cline{2-6} 
+             & \textbf{O} & O & O & N & N \\ \cline{2-6} 
+             & \textbf{X} & X & N & X & N \\ \cline{2-6} 
+             & \textbf{N} & N & N & N & N \\ \hline
+        \end{tabular}
+        \begin{tabular}{|c|c|c|c|c|c|}
+            \hline
+            \multicolumn{2}{|c|}{\multirow{2}{*}{$A \vee B$}} & \multicolumn{4}{c|}{$B$} \\ \cline{3-6} 
+            \multicolumn{2}{|c|}{} & \textbf{P} & \textbf{O} & \textbf{X} & \textbf{N} \\ \hline
+            \multirow{4}{*}{$A$} & \textbf{P} & P & P & P & P \\ \cline{2-6} 
+             & \textbf{O} & P & O & P & O \\ \cline{2-6} 
+             & \textbf{X} & P & P & X & X \\ \cline{2-6} 
+             & \textbf{N} & P & O & X & N \\ \hline
+        \end{tabular}
+        \begin{tabular}{|c|c|c|c|c|c|}
+            \hline
+            \multicolumn{2}{|c|}{\multirow{2}{*}{$A \rightarrow B$}} & \multicolumn{4}{c|}{$B$} \\ \cline{3-6}
+            \multicolumn{2}{|c|}{} & \textbf{P} & \textbf{O} & \textbf{X} & \textbf{N} \\ \hline
+            \multirow{4}{*}{$A$} & \textbf{P} & P & O & X & N \\ \cline{2-6} 
+             & \textbf{O} & P & O & P & O \\ \cline{2-6} 
+             & \textbf{X} & P & P & X & X \\ \cline{2-6} 
+             & \textbf{N} & P & P & P & P \\ \hline
+        \end{tabular}
+    \caption{Protože Kleeneho trojhodnotová logika je už \uv{zastaralá}, uvádíme si zde příklad čtyřhodnotové logiky \bigskip}
+    \label{table_2}
+    \end{table}
+    
+    \section{Algoritmy}
+    \label{sekce_3}
+    Pokud budeme chtít vysázet algoritmus, můžeme použít prostředí \verb! algorithm!\footnote{Pro nápovědu, jak zacházet s prostředím \texttt{algorithm}, můžeme zkusit tuhle stránku: \newline
+	\url{http://ftp.cstug.cz/pub/tex/CTAN/macros/latex/contrib/algorithms/algorithms.pdf}.} nebo \verb! algorithm2e!\footnote{Pro \texttt{algorithm2e} zase tuhle: \url{http://ftp.cstug.cz/pub/tex/CTAN/macros/latex/contrib/algorithm2e/doc/algorithm2e.pdf}.}.\break Příklad použití prostředí \verb!algorithm2e! viz Algoritmus \ref{algoritmus_1}.
+	
+	\bigskip
+	
+	\begin{algorithm}
+	    \label{algoritmus_1}
+	    \IncMargin{1.5em}
+	    \caption{\textsc{FastSLAM}}
+	    \SetNlSty{textnormal}{}{:}
+	    \SetNlSkip{-1.17em}
+	    \SetInd{2em}{0em}
+    	\KwIn{ $(X_{t-1}$, $u_t$, $z_t)$}
+	    \KwOut{ $X_t$}
+	    \Indpp\Indp\Indpp
+	    \BlankLine
+	    $\overline{X_t} = X_t = 0$
+	    
+	    \For{$k = 1$ \textnormal{to} $M$}
+	    {$x_{t}^{[k]} = \textit{sample\_motion\_model}(u_t, x_{t-1}^{[k]})$
+	    
+	    $\omega_{t}^{[k]} = \textit{measurement\_model}(z_t, x_t^{[k]}, m_{t-1})$
+	    
+	    $m_t^{[k]} = updated\_occupancy\_grid(z_t, x_t^{[k]}, m_{t-1}^{[k]})$
+	    
+	    $\overline{X_t} = \overline{X_t} + \langle x_x^{[m]}, \omega_t^{[m]} \rangle$}
+	    \For{$k = 1$ \textnormal{to} $M$}
+	    {draw $i$ with probability $\approx \omega_t^{[m]}$
+	    
+	    add $\langle x_x^{[k]}, m_t^{[k]} \rangle$ to $X_t$}
+	    \KwRet{$X_t$}
+	\end{algorithm}
+	
+	\section{Obrázky}
+	Do našich článků můžeme samozřejmě vkládat obrázky. Pokud je obrázkem fotografie, můžeme klidně použít bitmapový soubor. Pokud by to ale mělo být nějaké schéma nebo něco podobného, je dobrým zvykem takovýto obrázek vytvořit vektorově.
+	
+	\begin{figure}[h]
+	    \centering
+	    \includegraphics[scale=0.4]{etiopan.eps}\reflectbox{\includegraphics[scale=0.4]{etiopan.eps}}
+	    \caption{Malý Etiopánek a jeho bratříček}
+	    \label{Img_1}
+	\end{figure}
+	
+	Rozdíl mezi vektorovým \dots
+	
+	\begin{figure}[h]
+	    \centering
+	    \includegraphics[scale=0.4]{oniisan.eps}
+	    \caption{Vektorový obrázek}
+	    \label{Img_2}
+	    \bigskip
+	\end{figure}
+	
+	\noindent\dots a bitmapovým obrázkem
+
+    \begin{figure}[h]
+	    \centering
+	    \includegraphics[scale=0.6]{oniisan2.eps}
+	    \caption{Bitmapový obrázek}
+	    \label{Img_3}
+	\end{figure}
+	\bigskip
+	\noindent se projeví například při zvětšení.
+	
+	Odkazy (nejen ty) na obrázky \ref{Img_1}, \ref{Img_2} a \ref{Img_3}, na tabulky \ref{table_1} a \ref{table_2} a také na algoritmus \ref{algoritmus_1} jsou udělány pomocí křížových odkazů. Pak je ovšem potřeba zdrojový soubor přeložit dvakrát.
+	
+	Vektorové obrázky lze vytvořit i přímo v {\LaTeX}u, například pomocí prostředí \verb! picture.!
+
+    \setlength{\unitlength}{0.8cm}
+    \begin{landscape}
+    \begin{figure}[ht]
+    \begin{picture}(25,20)
+    \centering
+        \thicklines
+        \put(4,1){\line(0,1){6}}
+        \put(10,0){\line(1,0){5}}
+        \put(15,0){\line(0,1){6}}
+        \put(10,0){\line(0,1){6}}
+        \put(10,6){\line(1,0){5}}
+        \put(15,0){\line(1,1){1}}
+        \put(16,1){\line(0,1){6}}
+        \put(15,6){\line(1,1){1}}
+        \put(4,1){\line(1,0){6}}
+        \put(16,1){\line(1,0){6}}
+        \put(22,1){\line(0,1){6}}
+        \put(22,1){\line(1,1){2}}
+        \put(22,7){\line(1,1){2}}
+        \put(24,3){\line(0,1){6}}
+        \put(22,7){\line(-1,0){6}}
+        \put(10,6){\line(-1,0){6}}
+        \put(10,5.5){\line(-1,0){6}}
+        \put(6.5,2.5){\line(1,0){1}}
+        \put(6.5,4){\line(1,0){1}}
+        \put(6.5,2.5){\line(0,1){1.5}}
+        \put(7.5,2.5){\line(0,1){1.5}}
+        \put(18.5,2.5){\line(1,0){1}}
+        \put(18.5,4){\line(1,0){1}}
+        \put(18.5,2.5){\line(0,1){1.5}}
+        \put(19.5,2.5){\line(0,1){1.5}}
+        \put(4,7){\line(1,0){5.9}}
+        \put(4,6.75){\line(1,0){5.78}}
+        \put(16,6.75){\line(1,0){6}}
+        \put(16,6){\line(1,0){6}}
+        \put(16,5.5){\line(1,0){6}}
+        \put(15,4.5){\line(1,1){1}}
+        \put(15,5){\line(1,1){1}}
+        \put(15,5){\line(-1,0){5}}
+        \put(15,4.5){\line(-1,0){5}}
+        \put(11.5,0){\line(0,1){2.5}}
+        \put(12.5,0){\line(0,1){2}}
+        \put(13.5,0){\line(0,1){2.5}}
+        \put(11.5,2.5){\line(1,0){2}}
+        \put(11.5,2){\line(1,0){2}}
+        \put(12.5,1){\line(1,0){0.5}}
+        \put(22,6){\line(1,1){2}}
+        \put(22,5.5){\line(1,1){2}}
+        \put(4,7){\line(1,2){2}}
+        \put(6,11){\line(1,0){17}}
+        \put(24,9){\line(-1,2){1}}
+        \put(23,11){\line(-1,-4){1}}
+        \put(10,6){\line(-1,1){0.45}}
+        \put(15,5.75){\line(1,1){1}}
+        \put(10,6){\line(2,3){2.5}}
+        \put(15,6){\line(-2,3){2.5}}
+        \put(9.54,6.45){\line(2,3){2.95}}
+        \put(15.45,6.45){\line(-2,3){2.95}}
+        \put(16,7){\line(-2,3){2.65}}
+        \put(12.5,10.87){\line(6,1){0.8}}
+        \put(12,6.5){\line(1,0){0.8}}
+        \put(12,6.5){\line(0,1){1}}
+        \put(12.8,6.5){\line(0,1){1}}
+        \put(12,7.5){\line(1,0){0.8}}
+        \put(12.4,7.5){\oval(0.8,0.8)[t]}
+        \put(11,11){\line(0,1){0.8}}
+        \put(11.6,11){\line(0,1){0.8}}
+        \put(12.05,11){\line(0,1){0.96}}
+        \put(11.6,11.8){\line(3,1){0.45}}
+        \put(11,11.8){\line(3,1){0.45}}
+        \put(11.4,11.95){\line(1,0){0.62}}
+        \put(11,11.8){\line(1,0){0.6}}
+        \put(22,15){\circle{1.8}}
+        \put(21,14){\line(-1,-1){0.8}}
+        \put(20.5,15){\line(-3,-1){1}}
+        \put(19.5,16.2){\line(3,-1){1}}
+        \put(22,13.7){\line(-1,-3){0.45}}
+        \put(22,6.75){\line(1,1){2}}
+        \put(10,5.75){\line(1,0){5}}
+    \end{picture}
+    \caption{Vektorová kresba rodinného domu}
+    \end{figure}
+    \end{landscape}
+\end{document}
