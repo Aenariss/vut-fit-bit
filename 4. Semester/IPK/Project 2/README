@@ -1,0 +1,19 @@
+VUT FIT IPK 2020/2021 Projekt 2
+Autor: Vojtěch Fiala <xfiala61>
+Soubory: Makefile, ipk-sniffer.cpp, manual.pdf, README
+
+Ipk-sniffer slouží k odchytávání síťových paketů na určeném rozhraní.
+Program je implementován dle zadání, při spouštění umožňuje ale také použít nový parametr --help.
+Ten slouží k vypsání nápovědy, která se taktéž vypíše v případě neznámého parametru.
+V případě použití tohoto parametru program, nehledě na ostatní parametry, vypíše nápovědu a skončí.
+
+Pro fungování skenování paketů je nutné program spouštět s root privilegii.
+
+Obecné spuštění: 
+./ipk-sniffer [-i rozhraní | --interface rozhraní] {-p ­­port} {[--tcp|-t] [--udp|-u] [--arp] [--icmp] } {-n num}
+
+Příklady spuštění:
+./ipk-sniffer -i enp0s25 --tcp --udp -n 50 -p 42
+./ipk-sniffer -i enp0s25 --arp -p 42
+./ipk-sniffer -i
+./ipk-sniffer --help
