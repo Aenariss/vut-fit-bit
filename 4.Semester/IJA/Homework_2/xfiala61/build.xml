@@ -1,0 +1,90 @@
+<!--ant config file
+    Autor: Vojtech Fiala <xfiala61>
+    Inspirovano https://ant.apache.org/manual/tutorial-HelloWorldWithAnt.html
+-->
+<project name="IJA-2021" basedir="." default="main">
+
+    <property name="src.dir"     value="src"/>
+    <property name="data.dir"     value="data"/>
+    <property name="build.dir"   value="build"/>
+    <property name="dest.dir" value="dest"/>
+    <property name="doc.dir"     value="doc"/>
+    <property name="main-class"  value="Main"/>
+    <property name="jfx.dir" value="lib/javafx-sdk-11/lib"/>
+
+    <target name="clean">
+        <delete includeemptydirs="true">
+            <fileset dir="build" includes="**/*"/>
+        </delete>
+
+        <delete includeemptydirs="true">
+            <fileset dir="dest" includes="**/*"/>
+        </delete>
+
+        <delete includeemptydirs="true">
+            <fileset dir="doc">
+            <include name="**/*"/>
+            <exclude name="**/architektura.pdf"/>
+            </fileset>
+        </delete>
+    </target>
+
+    <target name="compile" depends="download">
+        <javac srcdir="${src.dir}" destdir="${build.dir}" includeantruntime="false" modulepath="${jfx.dir}">
+        <compilerarg line="--add-modules javafx.controls ${src.dir}/Main.java"/>
+        </javac>
+        <jar destfile="${dest.dir}/ija-app.jar" basedir="${build.dir}">
+            <manifest>
+                <attribute name="Main-Class" value="${main-class}"/>
+            </manifest>
+        </jar>
+        <antcall target="doc"/>
+    </target>
+
+    <target name="doc">
+    <javadoc destdir="${doc.dir}" additionalparam="-author --ignore-source-errors">
+            <fileset dir="."/>
+            <classpath>
+		        <fileset dir="${jfx.dir}">
+		            <include name="javafx.base.jar"/>
+                    <include name="javafx.fxml.jar"/>
+                    <include name="javafx-swt.jar"/>
+                    <include name="javafx.controls.jar"/>
+                    <include name="javafx.graphics.jar"/>
+                    <include name="javafx.media.jar"/>
+                    <include name="javafx.properties"/>
+                    <include name="javafx.swing.jar"/>
+                    <include name="javafx.web.jar"/>
+	        	</fileset>
+	    	</classpath>
+        </javadoc>
+    </target>
+
+
+    <target name="run" depends="compile_test">
+        <java jar="${dest.dir}/ija-app.jar" fork="true" modulepath="${jfx.dir}">
+        <jvmarg line="--add-modules javafx.controls"/>
+        </java>
+    </target>
+
+    <target name="compile_test" depends="jar.check" unless="jar.exists">
+        <antcall target="compile"/>
+    </target>
+
+    <target name="jar.check" depends="download">
+        <condition property="jar.exists">
+            <available file="${dest.dir}/ija-app.jar"/>
+        </condition>
+    </target>
+
+    <target name="download" depends="fx.check" unless="fx.exists">
+        <exec executable="lib/get-libs.sh"/>
+    </target>
+
+    <target name="fx.check">
+        <condition property="fx.exists">
+            <available file="${jfx.dir}" type="dir"/>
+        </condition>
+    </target>
+
+</project>
