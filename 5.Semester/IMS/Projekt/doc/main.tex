@@ -1,0 +1,224 @@
+\documentclass[14pt]{extarticle}
+\usepackage[left=2cm, top=3cm]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage[czech]{babel}
+\usepackage[hyphens,spaces,obeyspaces]{url}
+\usepackage[breaklinks, unicode]{hyperref}
+\usepackage{hyperref}
+\usepackage{subfig}
+\usepackage{float}
+\usepackage{multirow}
+\hypersetup{
+    colorlinks=true
+}
+
+
+\begin{document}
+
+	\begin{titlepage}
+		\begin{center}
+			\includegraphics[scale=0.15]{fit_logo.png}
+			\\
+			\vspace{\stretch{0.152}}
+			{\Large
+			\huge{{IMS 2021/2022 -- Simulační studie\\[0.5em]}}}
+				 \LARGE{Green Deal a jeho dopady na ekonomiku EU\\}
+			\vspace{\stretch{0.180}}
+		\end{center}
+		
+		{\Large
+		    \today
+			\hfill
+			\begin{tabular}{l c r}
+            Vojtěch Bůbela (xbubel08)\hspace{1.03em}\\
+            Vojtěch Fiala \,\,\,\,\,(xfiala61)
+            \end{tabular}
+		}
+		
+	\end{titlepage}
+	
+	\section{Úvod}
+	
+	Cílem této práce je na základě experimentů s predikcí vývoje časových řad vypočítat počet elektromobilů, který v České republice bude v roce 2030 a tento počet porovnat s predikcí Aktualizace Národního akčního plánu čisté mobility \cite{NAP} (dále jen NAP CM). Dalším cílem této práce je zjistit, jaký vliv by na prodeje elektromobilů měli dotace na ně pro fyzické osoby ze strany státu. Do roku 2030 chce Evropská Unie, v rámci programu Green Deal, aby došlo ke snížení emisí skleníkových plynů o 50-55\% oproti stavu z r. 1990. Do roku 2050 má být poté EU zcela klimaticky neutrální \cite{GD}. Jedním z faktorů, který má k dosažení těchto cílů přispět, je právě zvýšení podílu elektromobilů na silnicích. NAP CM uvádí, že se dílčích cílů do roku 2030 České republice dosáhnout nepovede (\cite{NAP}, strana 10). Uvádí nicméně konkrétní interval elektromobilů (220 000-500 000), jež očekává, že budou v roce 2030 jezdit po Českých silnících a s tím související úsporu emisí (\cite{NAP}, strana 11). Tato práce si tedy klade za cíl ověřit, zda jsou predikce počtu elektromobilů v ČR uváděné NAP CM reálné a zda skutečně nelze požadovaných úspor emisí čistě díky počtu elektromobilů dosáhnout ani za pomoci vlivu potenciálních dotací.
+	
+	\subsection{Autoři a zdroje}
+	Tuto práci vypracovali studenti FIT VUT -- Vojtěch Bůbela a Vojtěch Fiala v rámci předmětu\textit{ Modelování a simulace}. Jako hlavní zdroj faktů a informací, které tato práce ověřuje, slouží již zmíněná Aktualizace Národního akčního plánu čisté mobility vydaná v roce 2019 \cite{NAP} v reakci na schválení evropského Green Dealu.
+	Hlavním zdrojem získaných statistik, ze kterých vychází celý model predikující počet prodaných elektromobilů, je Svaz Dovozců Automobilů (dále jen SDA) \cite{SDA}.
+	
+	\subsection{Ověření validity}
+	Ověřování validity probíhalo experimentálně (viz experiment 1, jehož popis lze nalézt v kapitole \ref{exp1}), kdy bylo účelem experimentu nastavit model tak, aby se co nejvíce blížil realitě. Ověřování spočívalo v porovnávání předpovědí, které model vytvořil, se skutečnými údaji z jednotlivých měsíců roku 2021 získanými ze stránek SDA.
+	
+	\section{Rozbor tématu a použitých metod/technologií}
+	\label{s2}
+	Prodeje elektromobilů se v České republice rok od roku mírně navyšují (viz statistiky  SDA\footnote{\url{https://portal.sda-cia.cz/stat.php?n\#rok=2021\&mesic=1\&kat=OA\&vyb=pt\&upr=ptznacky\&obd=m\&jine=false\&lang=CZ\&str=nova}}). Důvodů postupně se navyšující poptávky je více. Dle výsledků ankety provedené mezi lidmi se zájmem o elektromobilitu\footnote{\url{https://elektrickevozy.cz/clanky/jake-jsou-nejvetsi-nevyhody-elektromobilu-vysledky-ankety}} jsou hlavními nevýhodami při koupi elektromobilu vyšší cena a nižší dojezd, než je tomu u spalovacích alternativ. Jelikož postupně díky technologickému vývoji dochází ke zmírňování těchto problémů, prodeje logicky narůstají. To je podpořeno také snahami EU v rámci již zmíněného programu Green Deal o dosažení klimatické neutrality, kdy dochází k umělému omezování výroby klasických spalovacích motorů\footnote{\url{https://ec.europa.eu/commission/presscorner/detail/en/fs_21_3665}} (nová auta mají do roku 2035 mít nulové emise, což je se spalovacím motorem nemožné), vlivem čehož automobilky nabízejí daleko více druhů elektromobilů než kdysi. 
+
+
+	V některých zemích jsou prodeje elektromobilů podporovány přímo státem za pomoci dotací nejen pro podnikatele, ale i fyzické osoby -- například v Německu přispívá vláda na nákup nového elektromobilu až 6000	\texteuro\footnote{\url{https://www.bafa.de/DE/Energie/Energieeffizienz/Elektromobilitaet/Neuen_Antrag_stellen/neuen_antrag_stellen.html}}. NAP CM uvádí, že fyzické osoby se na nákupu elektromobilů v České republice podílí jen minimálně (konkrétně pouze hodnotou kolem 5\%) (\cite{NAP}, strana 13) a proto pro ně dotace zavést není v plánu.
+	
+	\subsection{Popis použitých postupů}
+	Model byl vytvořen v jazyce C++, který je oproti jazyku C pro implementaci tohoto modelu vhodnější primárně z důvodu existence vyšších datových struktur (konkrétně model využívá oboustrannou frontu -- \textit{deque}). Model samotný pak vychází z definice AR (autoregresivního) modelu \cite{AR}, který se používá např. v ekonomii k predikování vývoje časových řad a je tedy schopný předpovědět budoucí vývoj prodeje elektromobilů, který není ve své podstatě nic jiného, než časová řada, pouze na základě již známého vývoje.
+	
+	\subsection{Popis původu použitých metod/technologií}
+	Při implementaci byly využity základní funkce a knihovny jazyka C++. Pro překlad je využit program GNU Make a jako překladač je použit g++. 
+	
+	K vypracování bylo také využito popisu AR modelu a jeho vlastností dostupných z \cite{AR} a dále také materiálů z VŠE\footnote{\url{https://nb.vse.cz/~arltova/vyuka/crsbir02.pdf}, strana 86}. 
+	
+	\section{Koncepce}
+	Koncepce modelu vychází z faktů zmíněných v předchozí kapitole \ref{s2}. Zmíněné snižování cen elektromobilů, navyšování dojezdu a další faktory jsou reflektovány v narůstajícím trendu prodejů a není proto potřeba je nějak zvlášt pro výpočet predikce modelovat.
+	
+	Dotace na elektromobilitu pro fyzické osoby jsou však něco, co je v jiných státech EU běžné, ale v České republice nikoliv. Model proto pro experimenty s nimi obsahuje složku, která ovlivňuje predikované výsledky na základě výše dotace. 
+	
+	Model nepočítá s možnými objevy ve vědě, které by mohly přístup k elektromobilitě významně ovlivnit a také nebere v potaz případné prodejní hity, kdy se drasticky zvýší počet prodaných elektromobilů vlivem pouze 1 či více populárních modelů. Stejně tak nepočítá s žádnými výpadky trhu, které by mohla způsobit další globální pandemie či příchod ekonomické krize, jelikož tyto faktory jsou těžko predikovatelné a mohou, ale také nemusí nastat. Dále také model nepočítá s tím, že by se do roku 2030 přestali vyrábět některými značkami jiné než elektrické vozy, jelikož ty nejvýznamnější značky na českém trhu (z dat SDA se jedná o Škodu a Volkswagen)  tento krok do roku 2030 provést neplánují.
+	
+	Na základě analýzy dat dostupných z SDA za rok 2021\footnote{\url{https://portal.sda-cia.cz/stat.php?n\#rok=2021\&mesic=11\&kat=OA\&vyb=pt\&upr=OA\&obd=r\&jine=false\&lang=CZ\&str=nova}} bylo zjištěno, že většina (cca 65\%) prodaných elektromobilů má základní cenovku nad 1 miliónem Kč. Z tohoto důvodu model tyto vozy při modelování vlivu dotací nebere v potaz, neboť je pravděpodobné, že dotace by jejich prodej výrazně neovlivnily a zabývá se pouze vlivem dotací na prodeje levnějších elektromobilů.
+	
+	\subsection{Popis konceptuálního modelu}
+	Jak bylo již zmíněno, model je autoregresivního charakteru. Pro výpočet predikcí počítá s již existujícími výsledky, u kterých za pomoci metody autokorelace určí jejich významnost. Záznamy o prodaném počtu elektromobilů jsou periodické (každý měsíc nový záznam) a jedná se tedy o časovou řadu\footnote{\url{https://homel.vsb.cz/~oti73/cdpast1/KAP10/KAP10.HTM}}. Pomocí autokorelace můžeme zjistit, jaký vliv mají hodnoty v této řadě na budoucí hodnotu. Proces autokorelace vytvoří autokorelační koeficient pro každou hodnotu časové řady, tento koeficient pak bude určovat, jaký vliv bude mít hodnota z časové řady na budoucí hodnotu. Výpočet autokorelačního koeficientu probíhá na základě následujícího vzorce: 
+	\label{ARM}
+	$$
+    \hat{\rho}_k = \frac{\sum\limits_{t=k+1}^{T}(r_t - \overline{r})(r_{t-k} - \overline{r})}{\sum\limits_{t=1}^{T}(r_t - \overline{r})^2}
+    $$
+    Modelování vlivu dotace na predikci je pak vyjádřeno koeficientem, kterým jsou vynásobeny všechny prodeje v určitém roce. V dalších letech s nimi pak již autokorelace pracuje sama.
+	
+	\subsection{Formát konceptuálního modelu}
+	\label{PRED}
+	Model je vyjádřen následující rovnicí
+
+	    $$y_t = {\beta}_0 + {\beta}_1 y_{t-1} + {\beta}_2 y_{t-2} + ... + {\beta}_k y_{t-k} + \epsilon_t$$ $y_t$ značí hodnotu, kterou chceme zjistit, ${\beta}_{0}$ až ${\beta}_{k}$ značí koeficient vlivu autokorelace, $y_{t-1}$ až $y_{t-k}$ značí hodnotu z časové řady a $\epsilon_t$ značí chybu. Tu však model zanedbává.
+	   
+    \section{Architektura simulačního modelu}
+    
+    Při spuštení se postupně vykoná experiment 1, experiment 2 a experiment 3, které na standardní výstup vypíší, co bylo v jejich rámci zjištěno. Tyto experimenty využívají funkci $calculate$ $prediction()$ pro výpočet predikce na další měsíc. Tato funkce implementuje konceptuální model zvolený pro problematiku řešenou v tomto projektu. Jako vstup obdrží frontu hodnot, podle kterých se má vykonat predikce a minimální velikost koeficientu, pro který má být autokorelace validní. Funkce vrací predpovězenou hodnotu pro další měsíc.
+    
+    \subsection{Výpočet autokorelačního koeficientu}
+    Nejprve se zjistí průměrná hodnota prodaných elektromobilů, dále se tato průměrná hodnota odečte od všech prvků fronty. Tyto hodnoty se umocní na druhou a sečtou, tím získáme dělitele ze vzorce v sekci \ref{ARM}. Výpočet čitatele probíhá postupným násobením hodnot z původní fronty s hodnotami z fronty posunutými o $k$, od obou hodnot je odečtena průměrná hodnota položek ve frontě. Velikost autokorelačního koeficientu získáme vydělením čitatele jmenovatelem. Následně přičteme ke $k$ 1 a proces zopakujeme. Proces opakujeme dokud je $k$ menší než délka pole.
+    
+    \subsection{Výpočet predikce}
+    Když už známe všechny hodnoty autokorelačního koeficientu, tak můžeme určit, které hodnoty z fronty jsou pro model významné. Pro autokorelační koeficienty větší než minimální velikost autokorelačního koeficientu vezmeme hodnotu, ze které byl koeficient spočítán. Takto získáme $y_{t-k}$ ze vzorce popsaném v sekci \ref{PRED}. Koeficient $\beta_{t-k}$ získáme vydělením autokorelačního koeficientu součtem všech validních autokorelačních koeficientů. Tyto hodnoty spolu vynásobíme a přičteme do průběžného součtu. Jakmile jsou takto zpracovány všechny autokorelační koeficienty, tak funkce vrátí pruběžný součet jako finální predikci.
+    
+    \subsection{Spouštění}
+    Experimenty lze spustit buď přímo spuštěním binárního souboru \texttt{(./simulation)} vzniklého po překladu a nebo za pomoci příkazu \texttt{make run}, vše z kořenového adresáře.
+    
+    \section{Podstata simulačních experimentů a jejich průběh}
+    
+    Experimenty byly prováděny za účelem předpovědět celkové množství elektrických aut v České republice v roce 2030, nejprve na základě predikce vývoje trhu čistě z již existujících dat a poté tuto predikci zopakovat, ale s vlivem dotací na elektromobily pro fyzické osoby ze strany státu a porovnat rozdíly mezi těmito 2 výsledky. Aby bylo možno predikovat dopředu, musel být model za pomoci experimentování nejprve správně nastaven.
+    
+    \subsection{Postup experimentování}
+    Experimentálně je predikován počet prodaných elektromobilů pro každý měsíc v roce. Tento údaj sám o sobě však není tak důležitý, jako celkový počet elektromobilů prodaných za rok, který je získán součtem prodaných elektromobilů za jednotlivé měsíce v roce. V případě modelování vlivu dotací na prodeje je pak každý dílčí výsledek za měsíc násoben hodnotou, která odpovídá rozdílu prodejů aut v různých cenových kategoriích.
+    
+    \subsection{Experiment 1}
+    \label{exp1}
+    Cílem prvotního experimentu bylo ověřit validitu modelu, což bylo prováděno predikcí prodaných elektroaut pro měsíce prosinec 2020 až listopad 2021. Z důvodu povahy této práce není hlavním ukazatelem spolehlivosti modelu přesnost predikce pro jednotlivé měsíce, ale přesnost predikce prodejů pro celý rok. Predikce je ovlivňena minimální velikostí autokorelačního koeficientu, hodnoty časové řady jejiž autokorelační koeficient je menší než toto minimum nejsou brány v potaz při výsledném výpočtu. V rámci experimentu 1 byly vypočítány predikce pro všechny možné minimální hodnoty autokorelačního koeficientu. Začínaje na 0 tato hodnota byla inkerementována o 0.001 dokud nebylo dosaženo hodnoty 1. Na základě toho procesu byla vybrána optimální minimální velikost autokorelačního koeficientu, což byla hodnota, pro kterou se predikce nejvíce blížila realitě. 
+    
+    Výstup experimentu 1, kdy proběhla predikce s nejrealističtějšími výsledky, lze vidět v tabulce:
+    
+    \begin{table}[H]
+    \centering
+    \captionsetup{justification=centering}
+
+        \begin{tabular}{|l|l|l|l|}
+        \hline
+                        & \textbf{Predikce} & \textbf{Realita}     & \textbf{Měsíc} \\ \hline
+                        & 130               & 198 (1135)           & Prosinec       \\ \hline
+                        & 127               & 207                  & Leden          \\ \hline
+                        & 158               & 104                  & Únor           \\ \hline
+                        & 178               & 205                  & Březen         \\ \hline
+                        & 206               & 177                  & Duben          \\ \hline
+                        & 197               & 238                  & Květen         \\ \hline
+                        & 203               & 249                  & Červen         \\ \hline
+                        & 218               & 154                  & Červenec       \\ \hline
+                        & 218               & 199                  & Srpen          \\ \hline
+                        & 227               & 194                  & Září           \\ \hline
+                        & 252               & 181                  & Říjen          \\ \hline
+                        & 265               & 271                  & Listopad       \\ \hline
+        \textbf{Součet} & \textbf{2379}     & \textbf{2377 (3314)} &                \\ \hline
+        \end{tabular}
+        \caption{Predikované hodnoty pro jednotlivé měsíce a jejich porovnání s realitou}
+    \end{table}
+    
+    Jak můžeme vidět, prosinec roku 2020 je silně ovlivněn tím, že bylo prodáno výrazně více aut než v jiných měsících, což bylo způsobeno uvedením modelu Škoda Enyaq iV na trh\footnote{\url{https://elektrickevozy.cz/clanky/prodeje-elektromobilu-v-cr-2020-velky-prehled-pravidelne-aktualizovano}} a jedná se o situaci, se kterou model nepočítá. Tato hodnota tedy pro predikci není brána v potaz, jelikož se jedná, podle statistik SDA, o ojedinělý úkaz. Když nahradíme hodnotu z prosince 2020 průměrem všech ostatních predikovaných hodnot a porovnáme s predikovanými hodnotami, zjistíme, že model dokázal prodeje předpovědět s přesností \textbf{99,9159\%}.
+    
+    \subsection{Experiment 2}
+    Cílem tohoto experimentu bylo predikovat počet elektromobilů po jednotlivých měsících až do konce roku 2030. K tomu je v něm použita již získaná nejideálnější hranice významnosti výsledku autokorelace, která byla získána v rámci předchozího experimentu. Následuje výsledková tabulka s výsledky predikcí pro jednotlivé roky, kdy je k celkovému počtu elektromobilů připočten jejich počet na konci roku 2020\footnote{\url{https://www.mdcr.cz/getattachment/Dokumenty/Strategie/Mobilita/2020-12-31-NAP-CM-Analyza-slozeni-vozidloveho-parku-CR.pdf.aspx}, strana 44}, který činí 7109 elektomobilů. 
+    
+    \begin{table}[H]
+    \centering
+    \captionsetup{justification=centering}
+        \begin{tabular}{|c|c|c|c|}
+        \hline
+                 \textbf{Rok} & \textbf{Nové elektromobily za rok} & \textbf{Počet celkem} \\ \hline
+                  2021         & 2378                                          & 9487                                     \\ \hline
+                  2022         & 2387                                          & 11874                                   \\ \hline
+                  2023         & 2702                                          & 14576                                    \\ \hline
+                  2024         & 5390                                          & 19966                                    \\ \hline
+                  2025         & 10824                                         & 30790                                    \\ \hline
+                  2026         & 18266                                         & 49056                                    \\ \hline
+                  2027         & 30524                                         & 79580                                 \\ \hline
+                  2028         & 48286                                         & 127866                                   \\ \hline
+                  2029         & 73496                                         & 201362                                   \\ \hline
+                  2030         & 109492                                        & 310854       
+                   \\ \hline
+                  
+        \end{tabular}
+        \caption{Predikované hodnoty pro jednotlivé roky až do roku 2030}
+\end{table}        
+    
+    Jak lze na výsledcích vidět, spadají do intervalu určeném NAP CM zmíněném již v úvodu -- 220 000-500 000. Predikce je v dolní polovině intervalu.
+    
+    \subsection{Experiment 3}
+    % 0.021875
+    Účelem tohoto experimentu bylo simulovat, jak by se prodej elektromobilů změnil, kdyby stát začal fyzickým osobám přispívat na koupi elektromobilů formou dotací. Výše dotace, se kterou tento experiment pracuje, byla stanovena zprůměrováním výše dotací na Slovensku, v Rakousku a v Německu, na 150 000 Kč. Principem tohoto experimentu je, že byl porovnán rozdíl v prodejích 2 nejprodávanějších aut na českém trhu (data byla získána ze statistik SDA) - Škoda Octavia (11441 prodaných kusů za rok 2021) a Škoda Fabia (14373 prodaných kusů v roce 2021), jejichž cenový rozdíl odpovídá výši dotace. Procentuální velikostí rozdílu (25\%) je poté vynásobena predikce pro rok 2022 a pro další roky je toto již aplikováno automaticky v rámci regresivního modelu. Výsledky tohoto experimentu jsou k vidění v následující tabulce:
+    
+    \begin{table}[H]
+    \centering
+    \captionsetup{justification=centering}
+        \begin{tabular}{|c|c|c|c|}
+        \hline
+                 \textbf{Rok} & \textbf{Nové elektromobily za rok} & \textbf{Počet celkem} \\ \hline
+                   2021         & 2378                                          & 9487                                     \\ \hline
+                  2022         & 2461                                          & 11948                                    \\ \hline
+                  2023         & 2878                                          & 14826                                    \\ \hline
+                  2024         & 5739                                          & 20565                                    \\ \hline
+                  2025         & 11803                                         & 32368                                    \\ \hline
+                 2026         & 19251                                         & 51619                                    \\ \hline
+                  2027         & 32198                                         & 83817                                   \\ \hline
+                  2028         & 51016                                         & 134833                                   \\ \hline
+                  2029         & 77805                                         & 212638                                   \\ \hline
+                  2030         & 115913                                        & 328551    
+                  \\ \hline
+        \end{tabular}
+        \caption{Predikované hodnoty pro jednotlivé roky až do roku 2030 se započítáním vlivu dotace na koupi elektromobilu pro fyzické osoby}
+\end{table}
+    
+    
+    Jak lze vidět, zlepšení je oproti predikci bez dotací minimální.
+    
+    \subsection{Závěry experimentů}
+    Byly provedeny celkem 3 experimenty. V rámci prvního z nich byla ověřena validita modelu. 
+    
+    
+    Druhý experiment předpověděl počet aut na českých silnicích v roce 2030. Toto číslo odpovídá predikci uvedené v NAP CM. Je však blíže spíše dolní hranici této predikce. Z toho plyne, že pokud se trhu nechá volný průběh, ekologických cílu požadovaných EU dosaženo nebude.
+    
+    
+    Třetí experiment se zabýval vlivem dotací pro fyzické osoby na počet prodaných elektromobilů. Bylo opět ověřeno, stejně jak uvádí NAP CM, že tyto dotace by měli zanedbatelný význam. 
+    
+    
+    Je možné experimenty prohlásit za věrohodné, neboť jejich cílem bylo ověřit již existující čísla, což se úspěšně podařilo. Systém byl také schopný s relativně vysokou mírou přesnosti predikovat data, které je možno porovnat se skutečnými daty.
+    
+    \section{Shrnutí simulačních experimentů a závěr}
+    
+    V rámci projektu vznikl nástroj, který byl implementován v jazyce C++, jež dokáže předpovědět prodaný počet elektrických automobilů do roku 2030, což dělá na základě analýzy již existujících dat. Model je autoregresivního charakteru a výsledky predikuje na základě vypočítání vlivu předchozích hodnot na hodnotu novou za pomoci metody autokorelace.
+    
+    Experimenty byla ověřena validita modelu, kdy byl predikován vývoj prodejů pro rok 2021, který byl poté porovnán se skutečností. Toto porovnání bylo úspěšné na 99,9159\%. Tato práce také úspěšně na základě experimentů ověřila, že předpověď NAP CM je realistická, tuto předpověď na základě výsledků experimentů konkretizovala a ověřila také, že, jak zmiňuje NAP CM, vliv případných dotací pro fyzické osoby na nákup elektromobilů by jejich prodeje výrazně neovlivnil.
+    
+    
+    Česká republika tedy, jak také uvádí NAP CM, skutečně s vysokou pravděpo\-dobností dílčích cílů vytyčených v rámci programu Green Deal dosáhnout nedokáže.
+    
+    \newpage
+    \bibliographystyle{czechiso}
+    \renewcommand{\refname}{Literatura}
+    \bibliography{main}
+    
+    	
+\end{document}

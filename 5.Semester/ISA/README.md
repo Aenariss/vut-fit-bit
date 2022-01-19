@@ -5,4 +5,6 @@ Hodnocení předmětu: 8/10
 
 ## Projekt - 19/20
 
+## Laboratoře - 20/20
+
 Repo na projekt: github.com/Aenariss/isa-2021
