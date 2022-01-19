@@ -1,0 +1,33 @@
+#title-div-table {
+    font-size: 8vh;
+    text-align: center;
+}
+
+#title-main-separator-table {
+    background: rgb(129,133,137);
+    background: linear-gradient(90deg, rgba(129,133,137,1) 5%, rgba(223,96,12,1) 95%);  
+    height: 1.5%;
+    width: 75%;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 0.3rem;
+}
+
+.table-main {
+    margin: auto;
+    margin-top: 5%;
+    width: 80%;
+}
+
+#infoDIV {
+    width: 60px;
+    height: 60px;
+    font-size: large;
+    position: absolute;
+    bottom: 8px;
+    right: 17%;
+    transition:0.4s;
+}
+#infoDIV:hover {
+    color: #df5d07;
+}

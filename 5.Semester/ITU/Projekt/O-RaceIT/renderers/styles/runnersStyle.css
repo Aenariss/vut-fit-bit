@@ -1,0 +1,300 @@
+#inner-div {
+  width: 100%;
+  height: 100vh;
+  background-color: #ffffff;
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: ([col] 1fr)[12];
+      grid-template-columns: repeat(12, [col] 1fr);
+  -ms-grid-rows: ([row] 1fr)[24];
+      grid-template-rows: repeat(24, [row] 1fr);
+  grid-column-gap: 1em;
+  grid-row-gap: 15px;
+  padding: 15px;
+}
+
+#left-runner-div {
+  width: auto;
+  height: auto;
+  -ms-grid-column: 1;
+      grid-column-start: 1;
+  grid-column-end: 4;
+  -ms-grid-row: 1;
+      grid-row-start: 1;
+  grid-row-end: 25;
+  overflow-y: auto;
+  background-color: #ececec;
+  border-radius: 5px;
+  border: 1px #303030 solid;
+}
+
+.nameSurname {
+  border-bottom: 1px solid #747474;
+  padding-left: 10px;
+  font-size: larger;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  -webkit-transition: 0.2s;
+  transition: 0.2s;
+}
+
+.nameSurname:hover {
+  background-color: #ff975a;
+}
+
+.runner-active {
+  background-color: #383838 !important;
+  color: white;
+}
+
+#runnerForm {
+  -ms-grid-column: 4;
+      grid-column-start: 4;
+  grid-column-end: 8;
+  background-color: #333333;
+  -ms-grid-row: 1;
+      grid-row-start: 1;
+  grid-row-end: 17;
+  border-radius: 5px;
+  overflow-y: auto;
+  color: white;
+}
+
+#runnerForm h2 {
+  font-size: 1.6rem;
+  font-weight: bold;
+  margin-top: 10px;
+  margin-left: 10px;
+  padding-bottom: 0;
+}
+
+#flexFormInputs {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  padding-right: 20px;
+}
+
+#flexFormInputs label {
+  font-size: large;
+  font-weight: bolder;
+  margin-top: 5px;
+  margin-left: 6px;
+  margin-top: 10px;
+}
+
+#flexFormInputs input {
+  font-size: large;
+  margin-left: 12px;
+}
+
+#flexFormInputs option {
+  font-size: large;
+  margin-left: 12px;
+}
+
+#flexFormInputs select {
+  font-size: large;
+  margin-left: 12px;
+}
+
+#control-sequence {
+  background-color: #494949;
+  -ms-grid-column: 8;
+      grid-column-start: 8;
+  grid-column-end: 13;
+  -ms-grid-row: 1;
+      grid-row-start: 1;
+  grid-row-end: 25;
+  overflow-y: auto;
+  border-radius: 5px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  font-size: 1.2rem;
+  color: white;
+}
+
+#control-sequence #runner-control-sequence {
+  background-color: #b65200;
+  width: 70%;
+  overflow-y: auto;
+  padding-top: 10px;
+}
+
+#control-sequence #course-control-sequence {
+  background-color: #303030;
+  width: 30%;
+  overflow-y: auto;
+  padding-top: 10px;
+}
+
+#control-sequence .course-control-a {
+  margin-left: 5px;
+  border-bottom: 1px #ffffff dashed;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  margin-bottom: 5px;
+  height: 29px;
+}
+
+#control-sequence .course-control-a .numSpan {
+  font-weight: lighter;
+  font-size: 1rem;
+  width: 20%;
+}
+
+#control-sequence .course-control-a .controlSpanx {
+  font-weight: bolder;
+}
+
+#control-sequence .runner-control-a {
+  margin-left: 5px;
+  border-bottom: 1px #ffffff dashed;
+  margin-bottom: 5px;
+  margin-right: 5px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  height: 29px;
+}
+
+#control-sequence .runner-control-a .control-number-span {
+  font-weight: bolder;
+  width: 20%;
+}
+
+#control-sequence .runner-control-a .time-span {
+  font-size: 1rem;
+  font-weight: lighter;
+  margin-left: 10px;
+}
+
+#control-sequence .runner-control-empty {
+  font-style: italic !important;
+  font-size: 1rem !important;
+}
+
+#control-sequence .runner-control-beforeStart {
+  background-color: #740000 !important;
+  color: #ffffff;
+}
+
+#control-sequence .invalid-control-span {
+  color: black;
+  font-weight: bold;
+}
+
+#control-sequence .invalid-after-control-span {
+  background-color: #744b00;
+  font-weight: lighter;
+  color: #ececec;
+  font-style: italic;
+}
+
+#control-sequence .redIsTheColor {
+  background-color: #e41010;
+}
+
+#control-sequence .runner-control-none {
+  color: #747474;
+  font-style: italic;
+  font-weight: 300;
+}
+
+#saveChanges {
+  -ms-grid-column: 4;
+      grid-column-start: 4;
+  grid-column-end: 8;
+  -ms-grid-row: 17;
+      grid-row-start: 17;
+  grid-row-end: 19;
+  border: 4px #1b8520 solid;
+  font-size: 1.8rem;
+  background-color: #2c2c2c;
+  border-radius: 10px;
+  -webkit-transition: 0.6s;
+  transition: 0.6s;
+  font-weight: bolder;
+  color: white;
+}
+
+#saveChanges:hover {
+  cursor: pointer;
+  background-color: #248a29;
+  color: white;
+}
+
+#deleteRunner {
+  -ms-grid-column: 4;
+      grid-column-start: 4;
+  grid-column-end: 8;
+  -ms-grid-row: 23;
+      grid-row-start: 23;
+  grid-row-end: 25;
+  border: 4px #9e0000 solid;
+  font-size: 1.8rem;
+  background-color: #2c2c2c;
+  border-radius: 10px;
+  -webkit-transition: 0.6s;
+  transition: 0.6s;
+  font-weight: bolder;
+  color: white;
+}
+
+#deleteRunner:hover {
+  cursor: pointer;
+  background-color: #9e0000;
+  color: white;
+}
+
+#newRunner {
+  -ms-grid-column: 4;
+      grid-column-start: 4;
+  grid-column-end: 8;
+  -ms-grid-row: 19;
+      grid-row-start: 19;
+  grid-row-end: 21;
+  border-style: none;
+  border: 4px #184d66 solid;
+  font-size: 1.8rem;
+  background-color: #2c2c2c;
+  border-radius: 10px;
+  -webkit-transition: 0.6s;
+  transition: 0.6s;
+  font-weight: bolder;
+  color: white;
+}
+
+#newRunner:hover {
+  cursor: pointer;
+  background-color: #184d66;
+  color: white;
+}
+/*# sourceMappingURL=runnersStyle.css.map */

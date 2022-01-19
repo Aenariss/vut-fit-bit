@@ -1,0 +1,349 @@
+[
+    {
+    "cardID": 745213,
+    "punches":[
+        { "controlNumber": 101,"timeStamp": 2084 },
+        { "controlNumber": 108,"timeStamp": 3463 },
+        { "controlNumber": 110,"timeStamp": 4573 },
+        { "controlNumber": 107,"timeStamp": 5168 },
+        { "controlNumber": 102,"timeStamp": 6566 },
+        { "controlNumber": 145,"timeStamp": 7249 },
+        { "controlNumber": 132,"timeStamp": 8500 },
+        { "controlNumber": 100,"timeStamp": 8756 }
+        ]
+    },
+    {
+        "cardID": 483023,
+        "punches":[
+            { "controlNumber": 101,"timeStamp": 2084 },
+            { "controlNumber": 103,"timeStamp": 3463 },
+            { "controlNumber": 108,"timeStamp": 4573 },
+            { "controlNumber": 110,"timeStamp": 5168 },
+            { "controlNumber": 107,"timeStamp": 6566 },
+            { "controlNumber": 102,"timeStamp": 7249 },
+            { "controlNumber": 118,"timeStamp": 7924 },
+            { "controlNumber": 145,"timeStamp": 7990 },
+            { "controlNumber": 132,"timeStamp": 8180 },
+            { "controlNumber": 100,"timeStamp": 8350 }
+            ]
+    },
+    {
+    "cardID": 123874,
+    "punches":[
+        { "controlNumber": 101,"timeStamp": 2084 },
+        { "controlNumber": 108,"timeStamp": 3058 },
+        { "controlNumber": 110,"timeStamp": 4254 },
+        { "controlNumber": 107,"timeStamp": 4599 },
+        { "controlNumber": 102,"timeStamp": 5888 },
+        { "controlNumber": 145,"timeStamp": 6500 },
+        { "controlNumber": 132,"timeStamp": 7500 },
+        { "controlNumber": 100,"timeStamp": 8500 }
+        ]
+    },
+    {
+        "cardID": 214785,
+        "punches":[
+            { "controlNumber": 101,"timeStamp": 2084 },
+            { "controlNumber": 108,"timeStamp": 3058 },
+            { "controlNumber": 150,"timeStamp": 4254 },
+            { "controlNumber": 107,"timeStamp": 4599 },
+            { "controlNumber": 102,"timeStamp": 5888 },
+            { "controlNumber": 145,"timeStamp": 6500 },
+            { "controlNumber": 132,"timeStamp": 7500 },
+            { "controlNumber": 100,"timeStamp": 8500 }
+        ]
+    },
+    {
+        "cardID": 158749,
+        "punches":[
+            { "controlNumber": 101,"timeStamp": 12 },
+            { "controlNumber": 103,"timeStamp": 165 },
+            { "controlNumber": 108,"timeStamp": 189 },
+            { "controlNumber": 109,"timeStamp": 336 },
+            { "controlNumber": 107,"timeStamp": 2001 },
+            { "controlNumber": 100,"timeStamp": 3654 }
+        ]
+    },
+    {
+        "cardID": 695431,
+        "punches":[
+            { "controlNumber": 101,"timeStamp": 1450 },
+            { "controlNumber": 103,"timeStamp": 1852 },
+            { "controlNumber": 108,"timeStamp": 2600 },
+            { "controlNumber": 110,"timeStamp": 3654 },
+            { "controlNumber": 107,"timeStamp": 3874 },
+            { "controlNumber": 102,"timeStamp": 5214 },
+            { "controlNumber": 118,"timeStamp": 6870 },
+            { "controlNumber": 145,"timeStamp": 7580 },
+            { "controlNumber": 121,"timeStamp": 8950 },
+            { "controlNumber": 189,"timeStamp": 9124 },
+            { "controlNumber": 132,"timeStamp": 10001 },
+            { "controlNumber": 100,"timeStamp": 11125}
+        ]
+    },
+    {
+        "cardID": 475123,
+        "punches":[
+            { "controlNumber": 101,"timeStamp": 2040 },
+            { "controlNumber": 103,"timeStamp": 2051 },
+            { "controlNumber": 108,"timeStamp": 2112 },
+            { "controlNumber": 110,"timeStamp": 2354 },
+            { "controlNumber": 107,"timeStamp": 2451 },
+            { "controlNumber": 102,"timeStamp": 2687 },
+            { "controlNumber": 118,"timeStamp": 2961 },
+            { "controlNumber": 121,"timeStamp": 3650 },
+            { "controlNumber": 189,"timeStamp": 3874 },
+            { "controlNumber": 132,"timeStamp": 4100 },
+            { "controlNumber": 100,"timeStamp": 4123}
+        ]
+    },
+    {
+        "cardID": 985432,
+        "punches":[
+            { "controlNumber": 101,"timeStamp": 2654 },
+            { "controlNumber": 103,"timeStamp": 3058 },
+            { "controlNumber": 108,"timeStamp": 4254 },
+            { "controlNumber": 110,"timeStamp": 4599 },
+            { "controlNumber": 107,"timeStamp": 5888 },
+            { "controlNumber": 102,"timeStamp": 6500 },
+            { "controlNumber": 118,"timeStamp": 7500 },
+            { "controlNumber": 145,"timeStamp": 7500 },
+            { "controlNumber": 132,"timeStamp": 7500 },
+            { "controlNumber": 100,"timeStamp": 8500 }
+        ]
+    },
+    {
+        "cardID": 214785,
+        "punches":[
+            { "controlNumber": 101,"timeStamp": 2084 },
+            { "controlNumber": 108,"timeStamp": 3058 },
+            { "controlNumber": 150,"timeStamp": 4254 },
+            { "controlNumber": 107,"timeStamp": 4599 },
+            { "controlNumber": 102,"timeStamp": 5888 },
+            { "controlNumber": 145,"timeStamp": 6500 },
+            { "controlNumber": 132,"timeStamp": 7500 },
+            { "controlNumber": 100,"timeStamp": 8500 }
+        ]
+    },
+    {
+        "cardID": 214785,
+        "punches":[
+            { "controlNumber": 101,"timeStamp": 2084 },
+            { "controlNumber": 108,"timeStamp": 3058 },
+            { "controlNumber": 150,"timeStamp": 4254 },
+            { "controlNumber": 107,"timeStamp": 4599 },
+            { "controlNumber": 102,"timeStamp": 5888 },
+            { "controlNumber": 145,"timeStamp": 6500 },
+            { "controlNumber": 132,"timeStamp": 7500 },
+            { "controlNumber": 100,"timeStamp": 8500 }
+        ]
+    },
+    {
+        "cardID": 214785,
+        "punches":[
+            { "controlNumber": 101,"timeStamp": 2084 },
+            { "controlNumber": 108,"timeStamp": 3058 },
+            { "controlNumber": 150,"timeStamp": 4254 },
+            { "controlNumber": 107,"timeStamp": 4599 },
+            { "controlNumber": 102,"timeStamp": 5888 },
+            { "controlNumber": 145,"timeStamp": 6500 },
+            { "controlNumber": 132,"timeStamp": 7500 },
+            { "controlNumber": 100,"timeStamp": 8500 }
+        ]
+    },
+    {
+        "cardID": 214785,
+        "punches":[
+            { "controlNumber": 101,"timeStamp": 2084 },
+            { "controlNumber": 108,"timeStamp": 3058 },
+            { "controlNumber": 150,"timeStamp": 4254 },
+            { "controlNumber": 107,"timeStamp": 4599 },
+            { "controlNumber": 102,"timeStamp": 5888 },
+            { "controlNumber": 145,"timeStamp": 6500 },
+            { "controlNumber": 132,"timeStamp": 7500 },
+            { "controlNumber": 100,"timeStamp": 8500 }
+        ]
+    },
+    {
+        "cardID": 214785,
+        "punches":[
+            { "controlNumber": 101,"timeStamp": 2084 },
+            { "controlNumber": 108,"timeStamp": 3058 },
+            { "controlNumber": 150,"timeStamp": 4254 },
+            { "controlNumber": 107,"timeStamp": 4599 },
+            { "controlNumber": 102,"timeStamp": 5888 },
+            { "controlNumber": 145,"timeStamp": 6500 },
+            { "controlNumber": 132,"timeStamp": 7500 },
+            { "controlNumber": 100,"timeStamp": 8500 }
+        ]
+    },
+    {
+        "cardID": 214785,
+        "punches":[
+            { "controlNumber": 101,"timeStamp": 2084 },
+            { "controlNumber": 108,"timeStamp": 3058 },
+            { "controlNumber": 150,"timeStamp": 4254 },
+            { "controlNumber": 107,"timeStamp": 4599 },
+            { "controlNumber": 102,"timeStamp": 5888 },
+            { "controlNumber": 145,"timeStamp": 6500 },
+            { "controlNumber": 132,"timeStamp": 7500 },
+            { "controlNumber": 100,"timeStamp": 8500 }
+        ]
+    },
+    {
+        "cardID": 214785,
+        "punches":[
+            { "controlNumber": 101,"timeStamp": 2084 },
+            { "controlNumber": 108,"timeStamp": 3058 },
+            { "controlNumber": 150,"timeStamp": 4254 },
+            { "controlNumber": 107,"timeStamp": 4599 },
+            { "controlNumber": 102,"timeStamp": 5888 },
+            { "controlNumber": 145,"timeStamp": 6500 },
+            { "controlNumber": 132,"timeStamp": 7500 },
+            { "controlNumber": 100,"timeStamp": 8500 }
+        ]
+    },
+    {
+        "cardID": 214785,
+        "punches":[
+            { "controlNumber": 101,"timeStamp": 2084 },
+            { "controlNumber": 108,"timeStamp": 3058 },
+            { "controlNumber": 150,"timeStamp": 4254 },
+            { "controlNumber": 107,"timeStamp": 4599 },
+            { "controlNumber": 102,"timeStamp": 5888 },
+            { "controlNumber": 145,"timeStamp": 6500 },
+            { "controlNumber": 132,"timeStamp": 7500 },
+            { "controlNumber": 100,"timeStamp": 8500 }
+        ]
+    },
+    {
+        "cardID": 214785,
+        "punches":[
+            { "controlNumber": 101,"timeStamp": 2084 },
+            { "controlNumber": 108,"timeStamp": 3058 },
+            { "controlNumber": 150,"timeStamp": 4254 },
+            { "controlNumber": 107,"timeStamp": 4599 },
+            { "controlNumber": 102,"timeStamp": 5888 },
+            { "controlNumber": 145,"timeStamp": 6500 },
+            { "controlNumber": 132,"timeStamp": 7500 },
+            { "controlNumber": 100,"timeStamp": 8500 }
+        ]
+    },
+    {
+        "cardID": 214785,
+        "punches":[
+            { "controlNumber": 101,"timeStamp": 2084 },
+            { "controlNumber": 108,"timeStamp": 3058 },
+            { "controlNumber": 150,"timeStamp": 4254 },
+            { "controlNumber": 107,"timeStamp": 4599 },
+            { "controlNumber": 102,"timeStamp": 5888 },
+            { "controlNumber": 145,"timeStamp": 6500 },
+            { "controlNumber": 132,"timeStamp": 7500 },
+            { "controlNumber": 100,"timeStamp": 8500 }
+        ]
+    },
+    {
+        "cardID": 214785,
+        "punches":[
+            { "controlNumber": 101,"timeStamp": 2084 },
+            { "controlNumber": 108,"timeStamp": 3058 },
+            { "controlNumber": 150,"timeStamp": 4254 },
+            { "controlNumber": 107,"timeStamp": 4599 },
+            { "controlNumber": 102,"timeStamp": 5888 },
+            { "controlNumber": 145,"timeStamp": 6500 },
+            { "controlNumber": 132,"timeStamp": 7500 },
+            { "controlNumber": 100,"timeStamp": 8500 }
+        ]
+    },
+    {
+        "cardID": 214785,
+        "punches":[
+            { "controlNumber": 101,"timeStamp": 2084 },
+            { "controlNumber": 108,"timeStamp": 3058 },
+            { "controlNumber": 150,"timeStamp": 4254 },
+            { "controlNumber": 107,"timeStamp": 4599 },
+            { "controlNumber": 102,"timeStamp": 5888 },
+            { "controlNumber": 145,"timeStamp": 6500 },
+            { "controlNumber": 132,"timeStamp": 7500 },
+            { "controlNumber": 100,"timeStamp": 8500 }
+        ]
+    },
+    {
+        "cardID": 214785,
+        "punches":[
+            { "controlNumber": 101,"timeStamp": 2084 },
+            { "controlNumber": 108,"timeStamp": 3058 },
+            { "controlNumber": 150,"timeStamp": 4254 },
+            { "controlNumber": 107,"timeStamp": 4599 },
+            { "controlNumber": 102,"timeStamp": 5888 },
+            { "controlNumber": 145,"timeStamp": 6500 },
+            { "controlNumber": 132,"timeStamp": 7500 },
+            { "controlNumber": 100,"timeStamp": 8500 }
+        ]
+    },
+    {
+        "cardID": 214785,
+        "punches":[
+            { "controlNumber": 101,"timeStamp": 2084 },
+            { "controlNumber": 108,"timeStamp": 3058 },
+            { "controlNumber": 150,"timeStamp": 4254 },
+            { "controlNumber": 107,"timeStamp": 4599 },
+            { "controlNumber": 102,"timeStamp": 5888 },
+            { "controlNumber": 145,"timeStamp": 6500 },
+            { "controlNumber": 132,"timeStamp": 7500 },
+            { "controlNumber": 100,"timeStamp": 8500 }
+        ]
+    },
+    {
+        "cardID": 214785,
+        "punches":[
+            { "controlNumber": 101,"timeStamp": 2084 },
+            { "controlNumber": 108,"timeStamp": 3058 },
+            { "controlNumber": 150,"timeStamp": 4254 },
+            { "controlNumber": 107,"timeStamp": 4599 },
+            { "controlNumber": 102,"timeStamp": 5888 },
+            { "controlNumber": 145,"timeStamp": 6500 },
+            { "controlNumber": 132,"timeStamp": 7500 },
+            { "controlNumber": 100,"timeStamp": 8500 }
+        ]
+    },
+    {
+        "cardID": 214785,
+        "punches":[
+            { "controlNumber": 101,"timeStamp": 2084 },
+            { "controlNumber": 108,"timeStamp": 3058 },
+            { "controlNumber": 150,"timeStamp": 4254 },
+            { "controlNumber": 107,"timeStamp": 4599 },
+            { "controlNumber": 102,"timeStamp": 5888 },
+            { "controlNumber": 145,"timeStamp": 6500 },
+            { "controlNumber": 132,"timeStamp": 7500 },
+            { "controlNumber": 100,"timeStamp": 8500 }
+        ]
+    },
+    {
+        "cardID": 214785,
+        "punches":[
+            { "controlNumber": 101,"timeStamp": 2084 },
+            { "controlNumber": 108,"timeStamp": 3058 },
+            { "controlNumber": 150,"timeStamp": 4254 },
+            { "controlNumber": 107,"timeStamp": 4599 },
+            { "controlNumber": 102,"timeStamp": 5888 },
+            { "controlNumber": 145,"timeStamp": 6500 },
+            { "controlNumber": 132,"timeStamp": 7500 },
+            { "controlNumber": 100,"timeStamp": 8500 }
+        ]
+    },
+    {
+        "cardID": 214785,
+        "punches":[
+            { "controlNumber": 101,"timeStamp": 2084 },
+            { "controlNumber": 108,"timeStamp": 3058 },
+            { "controlNumber": 150,"timeStamp": 4254 },
+            { "controlNumber": 107,"timeStamp": 4599 },
+            { "controlNumber": 102,"timeStamp": 5888 },
+            { "controlNumber": 145,"timeStamp": 6500 },
+            { "controlNumber": 132,"timeStamp": 7500 },
+            { "controlNumber": 100,"timeStamp": 8500 }
+        ]
+    }
+]

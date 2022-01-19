@@ -1,0 +1,152 @@
+.solved-icon {
+    margin-right: 10px;
+    float: right;
+    color: rgb(77, 77, 77);
+    transition: 0.2s;
+}
+
+/* Perhaps add a tooltip on hover? (smth like "Vyreseno") */
+.solved-icon:hover {
+    color: rgb(255, 255, 255);
+}
+
+
+/* -----------------------------------------*/
+/* -------------- RESULT BAR ---------------*/
+/* -----------------------------------------*/
+#result-Bar {
+    background-color: #c9c9c9;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    /* Preparation for collapsing of bar */
+    width: 30%;
+    max-width: 30%;
+    height: 100%;
+    overflow-y: auto;
+}
+
+
+.status-ok {
+    background-color: #277913;
+    color: white;
+    margin: 5px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    border-radius: 3px;
+}
+
+.status-dnf {
+    background-color: #af621a;
+    color: white;
+    margin: 5px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    border-radius: 3px;
+}
+
+
+.vertical-center {
+    min-height: 100%;
+    min-height: 100vh;
+    display: flex;
+    align-items: flex-start;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.btn-runner {
+    float: right;
+}
+
+#add-punch {
+    text-align: center;
+    user-select: none;
+    -moz-user-select: none;
+    -khtml-user-select: none;
+    -webkit-user-select: none;
+    -o-user-select: none;
+    margin-bottom: 0px;
+    display: flex;
+    color: white;
+    background-color: #272727;
+    padding-top: 1%;
+    padding-bottom: 1%;
+    height: 5%;
+    align-items: center;
+    justify-content: center;
+}
+
+#result-container {
+    padding: 0;
+    margin: 0;
+    height: 100%;
+    overflow-y: auto;
+}
+
+#bottom-bar-continuous {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+
+    bottom: 0;
+    background-color: #272727;
+    color: white;
+    height: 10%;
+    padding-top: 1%;
+    padding-bottom: 1%;
+}
+
+
+
+#add-punch:hover {
+    background-color: #832900;
+    transition: 0.5s;
+}
+
+#newContainer {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+#wrapperDiv {
+    margin-bottom: 20px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+
+#new-div {
+    text-align: center;
+    grid-column-start: 9;
+    grid-column-end: 13;
+    grid-row: 2;
+}
+
+
+
+#runnersDiv {
+    justify-content: left;
+    max-height: 75%;
+    overflow-y: auto;
+}
+
+#newRunnerBtn {
+    margin-top: 0.5vh;
+}
+
+.runner-div-with-items {
+    box-sizing: border-box;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    min-height: 4.45rem;
+    margin-right: 10px;
+}

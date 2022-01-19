@@ -1,0 +1,64 @@
+#mainInnerDiv {
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+}
+#separator-settings {
+    height: 40%;
+    border-radius: 0.3rem;
+    margin-top: 0.5rem;
+    background: rgb(129,133,137);
+    background: linear-gradient(90deg, rgba(129,133,137,1) 5%, rgba(223,96,12,1) 95%);  
+    width: 90%;
+    height: 20px;
+}
+
+#settings-section-name {
+    font-size: 8vh;
+}
+
+#automaticSave {
+    background-color: #353535;
+    border-radius: 5px;
+    display: flex;
+    color: white;
+    margin-top: 30px;
+    font-size: 1.8rem;
+    display: flex;
+    flex-flow: column;
+    width: 70%;
+    align-items: center;
+    justify-content: space-evenly;
+    padding-top: 30px;
+    padding-bottom: 30px;
+}
+#automaticSave div {
+    display: flex;
+    align-items: center;
+    flex-flow: row;
+     width: 80%;
+   justify-content: space-between;
+}
+
+#autoCheck {
+    width: 30px;
+    height: 30px;
+}
+
+#newOrOver {
+    width: 30px;
+    height: 30px;
+}
+
+#startSaving {
+    border-style: none;
+    border: #d84f00 3px solid;
+    background-color: #353535;
+    color: white;
+    margin-top: 10px;
+    transition: 0.5s;
+}
+
+#startSaving:hover {
+    background-color: #d84f00;
+}

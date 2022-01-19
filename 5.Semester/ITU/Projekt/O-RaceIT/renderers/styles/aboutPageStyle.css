@@ -1,0 +1,30 @@
+#title-div {
+    font-size: 8vh;
+    text-align: center;
+}
+
+#title-main-separator {
+    background: rgb(129,133,137);
+    background: linear-gradient(90deg, rgba(129,133,137,1) 5%, rgba(223,96,12,1) 95%);  
+    height: 1.5%;
+    width: 75%;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 0.3rem;
+}
+
+.about-intro-div-container {
+    background-color: #808080;
+    text-align: center;
+    border-radius: 0.7rem;
+    border-style: solid;
+    border-color: #36454F;
+    margin-top: 5%;
+    width: 75%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.about-intro-div {
+    font-size: 2rem;
+}

@@ -1,0 +1,126 @@
+{
+  "name" : "Oblastní žebříček na krátké trati - Brno",
+  "date" : "25. 12. 2021",
+  "startTime" : 60,
+  "runners" : [{
+    "name" : "Daniel",
+    "surname" : "Pražák",
+    "cardId" : "158749",
+    "category" : "H18",
+    "startTime" : 0,
+    "punches" : [],
+    "status" : "REG",
+    "club" : "Žabovřesky"
+  },{
+    "name" : "Ruth",
+    "surname" : "Horáková",
+    "cardId" : "695431",
+    "category" : "D16",
+    "startTime" : 23,
+    "punches" : [],
+    "status" : "REG",
+    "club" : "Žabovřesky"
+  },{
+    "name" : "Samuel",
+    "surname" : "Groh",
+    "cardId" : "658348",
+    "category" : "H18",
+    "startTime" : 14,
+    "punches" : [],
+    "status" : "DNF",
+    "club" : "Žabovřesky"
+  },{
+    "name" : "Klára",
+    "surname" : "Můlová",
+    "cardId" : "475123",
+    "category" : "D16",
+    "startTime" : 34,
+    "punches" : [],
+    "status" : "REG",
+    "club" : "Vizovice"
+  },{
+    "name" : "Stefan",
+    "surname" : "Skelen",
+    "cardId" : "214785",
+    "category" : "H21",
+    "startTime" : 3,
+    "punches" : [],
+    "status" : "REG",
+    "club" : "Zlín"
+  },{
+    "name" : "Patricie",
+    "surname" : "Gunner",
+    "cardId" : "985432",
+    "category" : "D35",
+    "startTime" : 38,
+    "punches" : [],
+    "status" : "REG",
+    "club" : "Žabovřesky"
+  },{
+    "name" : "Tomáš",
+    "surname" : "Plánek",
+    "cardId" : "745213",
+    "category" : "H21",
+    "startTime" : 31,
+    "punches" : [],
+    "status" : "REG",
+    "club" : "Zlín"
+  },{
+    "name" : "Filip",
+    "surname" : "Palečník",
+    "cardId" : "333568",
+    "category" : "H18",
+    "startTime" : 17,
+    "punches" : [],
+    "status" : "REG",
+    "club" : "Vizovice"
+  },{
+    "name" : "Pavel",
+    "surname" : "Prechlík",
+    "cardId" : "123874",
+    "category" : "H21",
+    "startTime" : 24,
+    "punches" : [],
+    "status" : "REG",
+    "club" : "Zlín"
+  },{
+    "name" : "Kateřina",
+    "surname" : "Kůrová",
+    "cardId" : "021547",
+    "category" : "D35",
+    "startTime" : 28,
+    "punches" : [],
+    "status" : "REG",
+    "club" : "Žabovřesky"
+  },{
+    "name" : "Mathew",
+    "surname" : "Groh",
+    "cardId" : "777896",
+    "category" : "H18",
+    "startTime" : 8,
+    "punches" : [],
+    "status" : "REG",
+    "club" : "Vizovice"
+  }],
+  "courses" : [
+    {
+      "name":"H18",
+      "controlsSequence" : [
+        101,103,108,109,107,100]
+    },{
+      "name":"D35",
+      "controlsSequence" : [
+        101,103,108,110,107,102,118,145,132,100]
+    },{
+      "name":"H21",
+      "controlsSequence" : [
+        101,108,110,107,102,145,132,100]
+    },{
+      "name":"D16",
+      "controlsSequence" : [
+        101,103,108,110,107,102,118,145,121,189,132,100]
+    }
+    ]
+  
+  
+}

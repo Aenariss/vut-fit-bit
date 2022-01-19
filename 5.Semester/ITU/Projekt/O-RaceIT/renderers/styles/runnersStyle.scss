@@ -1,0 +1,268 @@
+#inner-div {
+    width: 100%;
+    height: 100vh;
+    background-color: #ffffff;
+    display: grid;
+
+    grid-template-columns: repeat(12, [col] 1fr);
+    grid-template-rows: repeat(24, [row] 1fr);
+    grid-column-gap: 1em;
+    grid-row-gap: 15px;
+    padding: 15px;
+
+
+
+}
+
+#left-runner-div {
+    width: auto;
+    height: auto;
+    grid-column-start: 1;
+    grid-column-end: 4;
+    grid-row-start: 1;
+    grid-row-end: 25;
+    overflow-y: auto;
+    background-color: rgb(236, 236, 236);
+    border-radius: 5px;
+    border: 1px #303030 solid;
+}
+
+.nameSurname {
+    border-bottom: 1px solid #747474;
+    padding-left: 10px;
+    font-size: larger;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    transition: 0.2s;
+}
+
+.nameSurname:hover {
+    background-color: #ff975a;
+}
+
+.runner-active {
+    background-color: rgb(56, 56, 56) !important;
+    color: white;
+}
+
+#runnerForm {
+    grid-column-start: 4;
+    grid-column-end: 8;
+    background-color: #333333;
+    grid-row-start: 1;
+    grid-row-end:  17;
+    border-radius: 5px;
+    overflow-y: auto;
+    color: white;
+
+
+    h2 {
+        font-size: 1.6rem;
+        font-weight: bold;
+        margin-top: 10px;
+        margin-left: 10px;
+        padding-bottom: 0;
+    }
+}
+
+#flexFormInputs {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    padding-right: 20px;
+
+
+    label {
+        font-size: large;
+        font-weight: bolder;
+        margin-top: 5px;
+        margin-left: 6px;
+        margin-top: 10px
+    }
+
+    input {
+        font-size: large;
+        margin-left: 12px;
+    }
+    option {
+        font-size: large;
+        margin-left: 12px;
+    }
+    select {
+        font-size: large;
+        margin-left: 12px;
+
+    }
+}
+
+#control-sequence {
+    background-color: rgb(73, 73, 73);
+    grid-column-start: 8;
+    grid-column-end: 13;
+    grid-row-start: 1;
+    grid-row-end:  25;
+    overflow-y: auto;
+    border-radius: 5px;
+    
+    display: flex;
+    flex-direction: row;
+    font-size: 1.2rem;
+    color: white;
+
+
+    #runner-control-sequence {
+        background-color: #b65200;
+        width: 70%;
+        overflow-y: auto;
+        padding-top: 10px;
+
+
+    }
+
+    #course-control-sequence {
+        background-color: rgb(48, 48, 48);
+        width: 30%;
+        overflow-y: auto;
+        padding-top: 10px;
+
+    }
+
+
+    .course-control-a {
+        margin-left: 5px;
+        border-bottom: 1px #ffffff dashed;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        margin-bottom: 5px;
+        height: 29px;
+
+
+        .numSpan {
+            font-weight: lighter;
+            font-size: 1rem;
+            width: 20%;
+        }
+        .controlSpanx{
+            font-weight: bolder;
+        }
+
+    }
+
+    .runner-control-a{
+        margin-left: 5px;
+        border-bottom: 1px #ffffff dashed;
+        margin-bottom: 5px;
+        margin-right: 5px;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        height: 29px;
+
+
+
+        .control-number-span {
+            font-weight: bolder;
+            width: 20%;
+        }
+        .time-span {
+            font-size: 1rem;
+            font-weight: lighter;
+            margin-left: 10px;
+        }   
+    }
+
+    .runner-control-empty {
+        font-style: italic !important;
+        font-size: 1rem !important;
+    }
+
+    .runner-control-beforeStart {
+        background-color: #740000 !important;
+        color: #ffffff;
+    }
+
+    .invalid-control-span {
+        color: rgb(0, 0, 0);
+        font-weight: bold;
+    }
+    .invalid-after-control-span {
+        background-color: #744b00;
+        font-weight: lighter;
+        color: #ececec;
+        font-style: italic;
+    }
+    .redIsTheColor {
+        background-color: #e41010;
+    }
+
+    .runner-control-none {
+        color: #747474;
+        font-style: italic;
+        font-weight: 300;
+    }
+
+}
+
+#saveChanges {
+    grid-column-start: 4;
+    grid-column-end: 8;
+    grid-row-start: 17;
+    grid-row-end: 19;
+    border: 4px #1b8520 solid;
+    font-size: 1.8rem;
+    background-color: #2c2c2c;
+    border-radius: 10px;
+    transition: 0.6s;
+    font-weight: bolder;
+    color: white;
+
+}
+#saveChanges:hover {
+    cursor: pointer;
+    background-color: #248a29;
+    color: white;
+}
+
+#deleteRunner {
+    grid-column-start: 4;
+    grid-column-end: 8;
+    grid-row-start: 23;
+    grid-row-end: 25;
+    border: 4px #9e0000 solid;
+    font-size: 1.8rem;
+    background-color: #2c2c2c;;
+    border-radius: 10px;
+    transition: 0.6s;
+    font-weight: bolder;
+    color: white;
+
+}
+#deleteRunner:hover {
+    cursor: pointer;
+    background-color: #9e0000;
+    color: white;
+}
+
+#newRunner {
+    grid-column-start: 4;
+    grid-column-end: 8;
+    grid-row-start: 19;
+    grid-row-end: 21;
+    border-style: none;
+    border: 4px #184d66 solid;
+    font-size: 1.8rem;
+    background-color: #2c2c2c;;
+    border-radius: 10px;
+    transition: 0.6s;
+    font-weight: bolder;
+    color: white;
+
+}
+
+#newRunner:hover {
+    cursor: pointer;
+    background-color: #184d66;
+    color: white;
+}
+

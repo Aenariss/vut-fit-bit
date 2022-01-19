@@ -1,0 +1,121 @@
+@import url('https://fonts.googleapis.com/css2?family=Rubik&display=swap');
+
+html, body {
+    margin: 0;
+    height: 100%;
+    font-family: 'Rubik', sans-serif;
+}
+
+#main-Window {
+    width: 100%;
+    height: 100vh;
+
+    /* Flexbox settings */
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    /*justify-content: space-between;*/
+    align-items: stretch;
+}
+
+#left-Bar {
+    background-color: #272727;
+    max-width: 90px;
+    height: 100%;
+
+    display: grid;
+    grid-template-columns: [column-One] auto;
+    grid-template-rows: [row-Home-Page] 80px [row-Competition] 80px [row-Racers] 80px [row-import] 80px [row-export] 80px [row-tables] 80px [row-fill] auto [row-newRacer] 80px [row-Settings] 80px;
+    column-gap: 0;
+    row-gap: 0;
+    justify-items: center;
+}
+
+#left-Bar img {
+    color: white;
+}
+
+#center-Section {
+    background-color: #fbfbfb;
+    height: 100vh;
+    min-width: 80%;
+}
+
+
+
+
+#welcome-Page{
+    grid-area: row-Home-Page / column-One / row-Home-Page / column-One;
+}
+
+#competition {
+    grid-area: row-Competition / column-One / row-Competition / column-One;
+}
+
+#runners {
+    grid-area: row-Racers / column-One / row-Racers / column-One;
+}
+
+#import {
+    grid-area: row-import / column-One / row-import / column-One;
+}
+
+#export {
+    grid-area: row-export / column-One / row-export / column-One;
+}
+
+#tables {
+    grid-area: row-tables / column-One / row-tables / column-One;
+}
+
+#settings {
+    grid-area: row-Settings / column-One / row-Settings / column-One;
+}
+
+#new-Racer {
+    grid-area: row-newRacer / column-One / row-newRacer / column-One;
+}
+
+
+.option {
+    width: 80px;
+    height: 80px;
+    transition: 0.15s;
+    display: flex;
+}
+
+.option i {
+    text-align: center;
+}
+
+
+.option:hover {
+    background-color: #df600c;
+    cursor: pointer;
+}
+.option:hover .tool-Tip-Text {
+    visibility: visible;
+    transition: visibility 1.5s;
+}
+
+.icon {
+    color: #eeeeee;
+    font-size: 35px;
+    margin: auto;
+}
+
+.tool-Tip-Text {
+    visibility: hidden;
+    width: 120px;
+    background-color: #272727;
+    color: #ffffff;
+    text-align: center;
+    padding: 5px 0;
+    border-radius: 6px;
+    margin-left: 90px;
+    margin-top: 20px;
+    position: absolute;
+    z-index: 1;
+}
+
+/* Runners page */

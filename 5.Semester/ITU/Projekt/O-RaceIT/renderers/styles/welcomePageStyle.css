@@ -1,0 +1,92 @@
+#welcome-inner-div {
+    background-color: #DCDCDC;
+    background: #f8f8f8; 
+    height: 100vh;
+    min-width: 70%;
+
+    display: grid;
+
+    grid-template-columns: repeat(24, [col] 1fr);
+    grid-template-rows: repeat(36, [row] 1fr);
+    grid-column-gap: 0.9em;
+    grid-row-gap: 15px;
+    padding: 15px;
+}
+
+#welcome-logo-div {
+    width: 70vh;
+    height: auto;
+    grid-column-start: 7;
+    grid-column-end: 19;
+    grid-row-start: 3;
+    grid-row-end: 11;
+    /* overflow-y: auto; */
+}
+
+#welcome-main-separator {
+    background: rgb(129,133,137);
+    background: linear-gradient(90deg, rgba(129,133,137,1) 5%, rgba(223,96,12,1) 95%);  
+    grid-column-start: 2;
+    grid-column-end: 24;
+    grid-row: 10;
+    height: 100%;
+    border-radius: 0.3rem;
+}
+
+
+.button {
+    width: auto;
+    height: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow-y: auto;
+    border-radius: 5px;
+	letter-spacing: 0.25rem;
+	cursor: pointer;
+    font-weight: bolder;
+    font-size: 1.8rem;
+    color: white;
+    background-size: 300%;
+    background-image: linear-gradient(to right,#353535, #353535, #e06500, #eb621d);
+    transition: 0.8s;
+}
+
+.button:hover {
+    background-position: right; 
+}
+
+#welcome-race-button {
+    grid-column-start: 3;
+    grid-column-end: 12;
+    grid-row-start: 13;
+    grid-row-end: 20;
+
+
+}
+
+#welcome-racers-button {
+    grid-column-start: 14;
+    grid-column-end: 23;
+    grid-row-start: 13;
+    grid-row-end: 20;
+}
+
+#welcome-table-button {
+    grid-column-start: 3;
+    grid-column-end: 12;
+    grid-row-start: 24;
+    grid-row-end: 31;
+}
+
+#welcome-about-button {
+    grid-column-start: 14;
+    grid-column-end: 23;
+    grid-row-start: 24;
+    grid-row-end: 31;
+}
+
+#text-div {
+    font-size: 2.5rem;
+    /* color: white; */
+}
