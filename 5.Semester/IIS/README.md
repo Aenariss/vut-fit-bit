@@ -1,12 +1,6 @@
-### inštalácia požadovaných python modulov:
-```shell
-pip install -r requirements.txt
-```
+# IIS 2021
+Hodnocení předmětu: 5/10
 
-### spustenie aplikácie:
-najprv je potrebné nastaviť FLASK_APP enviromental variable
-```shell
-export FLASK_APP=app.py
+## Výsledek: 1. pokus -- 67/100
 
-flask run
-```
+## Projekt - 27/30
