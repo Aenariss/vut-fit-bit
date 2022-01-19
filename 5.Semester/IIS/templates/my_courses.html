@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+
+{% block pagetitle %}Fituška 2.0 | Kurzy uživatele {{ username }}{% endblock %}
+{% block title %} Fituška 2.0 | Kurzy uživatele <a href={{ url_for('profile', author=id) }}> {{ username }}</a> {% endblock %}
+
+{% block body %}
+
+{% if courses == None %}
+<div class="text-center">Uživatel nevyučuje žádné kurzy</div>
+{% elif courses|length == 0 %}
+<div class="text-center">Uživatel nevyučuje žádné kurzy</div>
+{% else %}
+
+{% set count = namespace(value=0) %}
+{% for course in courses %}
+    <li class="row">
+        <a href="#{{ course.shortcut }}" data-toggle="collapse">
+            <h4 class="Title"> {{ course.shortcut }} 
+                {% if unread_courses[count.value] == 1 %} 
+                    <b><img src="{{ url_for('static', filename='images/unread_icon.png') }}" alt="Nové příspěvky" style="width: 15px;" title="Nové příspěvky!"></b>  
+                {% endif %}
+            </h4>
+            {% if (course.author == fcurrent_user.id or "admin" in roles) and course.approved == False %}
+                <b> &nbsp -- Čeká se na schválení! </b> 
+            {% endif %}
+            <div id="{{ course.shortcut }}" class="collapse">
+                <ol>
+                    {% set count_years = namespace(value=0) %}
+                    {% for i in years %}
+                    <li class="row">
+                        <div class="label" id="forum">
+                            <a href="{{ url_for('question',courseshrt=course.shortcut, year=i) }}" class="btn btn-link">Školní rok {{ i-1 }}/{{i}}
+                                {% if new_years[count.value][count_years.value] == 1 %}
+                                    <b><img src="{{ url_for('static', filename='images/unread_icon.png') }}" alt="Nové příspěvky" style="width: 15px;" title="Nové příspěvky!"></b> 
+                                {% endif %}
+                            </a>
+                        </div>
+                    </li>
+                    {% set count_years.value = count_years.value + 1 %}
+                    {% endfor %}
+                </ol>
+            </div>    
+            <div class="bottom">
+                <p class="full-name">
+                    {{ course.name }} - Autor: {{ username }}
+                </p>
+            </div>
+        </a>
+    </li>
+    {% set count.value = count.value + 1 %}
+{% endfor %}
+
+{% endif %}
+
+{% endblock %}

@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+{% from "security/_macros.html" import render_field_with_errors, render_field %}
+
+{% block pagetitle %} Fituška 2.0 | Registrace{% endblock %}
+{% block title %} Fituška 2.0 | Registrace{% endblock %}
+
+{% block body %}
+{% include "security/_messages.html" %}
+<div class="pageTitle">{{ _('Registrace') }}</div>
+<form action="{{ url_for_security('register') }}" method="POST" name="register_user_form" role="form">
+    <div class="row pad">
+        <div class="col-lg-6">
+  {{ register_user_form.hidden_tag() }}
+  
+    <div class="form-group">
+        {{ render_field_with_errors(register_user_form.email, class="form-control", placeholder="Vložte email" ) }}
+    </div>
+
+    <div class="form-group">
+        {{ render_field_with_errors(register_user_form.username, class="form-control", placeholder="Vložte uživatelské jméno" ) }}
+        <p style="color:grey;">Uživatelské jméno musí mít 4-20 znaků</p>
+    </div>
+
+        <div class="form-group">
+        {{ render_field_with_errors(register_user_form.name, class="form-control", placeholder="Vložte vaše jméno" ) }}
+        <p style="color:grey;">Jméno musí mít 2-20 znaků</p>
+    </div>
+
+    <div class="form-group">
+        {{ render_field_with_errors(register_user_form.surname, class="form-control", placeholder="Vložte vaše příjmení" ) }}
+        <p style="color:grey;">Přijmení musí mít 2-20 znaků</p>
+    </div>
+  
+    </div>
+    <div class="col-lg-6">
+        <div class="form-group">
+            {{ render_field_with_errors(register_user_form.password, class="form-control", placeholder="Vložte heslo") }}
+            <p style="color:grey;">Heslo musí obsahovat alespoň 6 znaků</p>
+        </div>
+        <div class="form-group">
+  {% if register_user_form.password_confirm %}   
+    {{ render_field_with_errors(register_user_form.password_confirm, class="form-control", placeholder="Vložte heslo") }}
+  {% endif %}
+</div>
+  
+        </div>
+    </div>
+
+    <div class="row pad">
+        <div class="col-lg-6">
+            <div class="form-group">
+                {{ render_field(register_user_form.submit,  class="btn btn-primary") }}
+                <a href="{{ url_for_security('login') }}" class="btn btn-link pull-right">
+                    Přejít na přihlášení <i class="glyphicon glyphicon-arrow-right"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</form>
+{% endblock %}

@@ -1,0 +1,423 @@
+{% extends "base.html" %}
+
+{% block pagetitle %}Fituška 2.0 | Fórum{% endblock %}
+{% block title %} Fituška 2.0 | <a href="{{ url_for('question', courseshrt=courseshrt, year=year) }}">{{ courseshrt }}</a> {% endblock %}
+
+{% block body %}
+
+{% if (err_status == 3) %}
+    <div class="alert alert-danger text-center">
+        Zadaná odpověď je moc dlouhá (Nebo naopak zadny text nebyl zadan)! Zkuste kratší (Max 200 znaků) a nebo naopak zadejte nejaky text!
+    </div>
+{% endif %}
+
+    <!-- Question -->
+    <div class="jumbotron" style="border-style: solid; border-radius: 6px; border: 3px;">
+        <ol>
+                <li class="row">
+                        <h4 class="Title">{{ question.title }}</h4>
+                        {% if ((fcurrent_user.id == course.author) or ("admin" in roles)) %}
+                            {% if not question.solved %}
+                            <!-- Question solved button -->
+                            <form action="{{ url_for('toggle_solved', courseshrt=courseshrt, year=year, questionid=question.id, status=1) }}" method='POST'>
+                                <input type="submit" class="btn btn-primary" value="Nastavit Vyřešeno">
+                            </form>
+                            {% else %}
+                            <form action="{{ url_for('toggle_solved', courseshrt=courseshrt, year=year, questionid=question.id, status=0) }}" method='POST'>
+                                <input type="submit" class="btn btn-primary" value="Nastavit Nevyřešeno">
+                            </form>
+                            {% endif %}
+                        {% endif %}
+                            <h5>Autor: <a href="{{ url_for('profile', author=q_author_id) }}">{{ q_author_username }}</a> [Karma: {{ q_author_karma }}]
+                                 | Kategorie: {{ question.category }} | Vytvořeno: {{ question.date.strftime('%d. %m. %Y') }}
+                                 | Poslední aktivita: {% if question.lastUpdated != None %}
+                                    {{question.lastUpdated.strftime('%d. %m. %Y %H:%M:%S')}}
+                                                {% endif %}
+                            </h5>
+                            <br>
+                    <p>{{ question.body }}</p>
+                </li>
+        </ol>
+    </div>
+    <hr>
+
+    <!-- Final Reply thread -->
+    {% if fin_replies|length != 0 %}
+    <ul class="list-group">
+        {% set i = namespace(value=0) %}
+        {% set k = namespace(value=0) %}
+        {% for reply in fin_replies %}
+
+            {% if reply.correct %}
+            <li class="list-group-item" style="border-style: solid; border-radius: 6px; border-width: 4px; border-color: #00FF00;">
+            {% else %}
+            <li class="list-group-item"></li>
+            {% endif %}
+                <!-- Delete button: user authentication needed -->
+                {% if reply.author == fcurrent_user.id or "admin" in roles %}
+                    <form action="{{ url_for('delete_reply', replyid=reply.id, courseshrt=courseshrt, year=year, questionid=question.id) }}" method='POST' >
+                        <button type="submit" value="replyid" class="btn btn-danger" style="float: right;">Smazat</button>
+                    </form>
+                {% endif %}
+
+                <!--Unark reply as solution-->
+                {% if (fcurrent_user.id == course.author or "admin" in roles) and question.solved %}
+                    <form action="{{ url_for('mark_reply_solved',courseshrt=courseshrt,year=year,questionid=question.id,replyid=reply.id,status=0) }}" method="POST">
+                        <button type="submit" class="btn btn-danger" style="float: right;">Zrušit označení řešení</button>
+                    </form>
+                {% endif %}
+
+                <h6>
+                    Autor:<a href="{{ url_for('profile', author=fin_rep_author_ids[i.value]) }}"> {{ fin_rep_author_username[i.value] }}</a> [Karma: {{ fin_rep_author_karma[i.value] }}]
+                    | Vytvořeno: {{ reply.date.strftime('%d. %m. %Y, %H:%M:%S') }}
+                    {% if fin_visited_replies[i.value] == 1 %} 
+                        <b><img src="{{ url_for('static', filename='images/unread_icon.png') }}" alt="Nové příspěvky" style="width: 15px;" title="Nové příspěvky!"></b>
+                    {% endif %}
+                </h6>
+            
+                <a style="color:black;text-decoration: none;" id="{{reply.id}}"><p>{{ reply.message }}</p></a>
+                <div class="container">
+                    <!-- Upvote and downvote buttons: user authentication and functionality needed -->
+                    {% if (not question.solved and status == 2) or (course.author == current_user.id or "admin" in roles) %}
+                        <form action="{{ url_for('upvote_reply', replyid=reply.id, courseshrt=courseshrt, year=year, questionid=question.id, operation='up') }}" method='GET' >
+                            <button type="submit">
+                                {% if fin_rep_upvotes[i.value] == 1 %}
+                                <img src="{{ url_for('static', filename='images/upvote.png') }}" alt="Upvote" width=20 >
+                                {% else %}
+                                <img src="{{ url_for('static', filename='images/upvote_empty.png') }}" alt="Upvote" width=20 >
+                                {% endif %}
+                            </button>
+                        </form>
+                    {% endif %}
+
+                    Hlasy: {{ reply.upvote }}
+
+                    {% if (not question.solved and status == 2) or (course.author == current_user.id or "admin" in roles) %}
+                        <form action="{{ url_for('upvote_reply', replyid=reply.id, courseshrt=courseshrt, year=year, questionid=question.id, operation='down') }}" method='GET' >
+                            <button type="submit">
+                                {% if fin_rep_upvotes[i.value] == 2 %}
+                                <img src="{{ url_for('static', filename='images/downvote.png') }}" alt="Upvote" width=20 >
+                                {% else %}
+                                <img src="{{ url_for('static', filename='images/downvote_empty.png') }}" alt="Upvote" width=20 >
+                                {% endif %}
+                            </button>
+                        </form>
+                    {% endif %}
+                </div>
+
+                <!--Checkmark image if reply is correct-->
+                {% if question.solved %}
+                    <img src="{{ url_for('static', filename='images/solved.png') }}" alt="Correct reply" width="50px" style="float: right;"/>
+                {% endif %}    
+
+                <!-- Response thread -->
+                {% if fcurrent_user.id is defined and not question.solved %}
+                    {% if ((fcurrent_user.id != course.author and status == 2) or ("admin" in roles)) %}
+                
+                        <!-- New response button -->
+                        <div class="row">
+                            <div class="col-lg-3">  
+                                <a href="#newResponse{{ i.value }}" data-toggle="modal" class="btn btn-primary" title="Add Response">
+                                    <i class="glyphicon glyphicon-plus-sign"></i> Reagovat
+                                </a>
+                            </div>
+                        </div>
+                
+                        <div class="modal fade" id="newResponse{{ i.value }}">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                        <h4 class="modal-title">Reagovat</h4>    
+                                    </div>
+                                    <div class="modal-body">
+                                        <label>Reakce (Max delka 300 znaku)</label>
+                                        <form action="{{ url_for('add_response', courseshrt=courseshrt, year=year, questionid=question.id, reply=reply.id) }}" method='POST'>
+                                            <input name="message"  class="form-control" placeholder="Reakce">
+                                            <input type="submit" class="btn btn-primary" value="Potvrdit">
+                                        </form>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">Zavřít</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endif %}
+                {% endif %}
+
+                <hr>
+                <ul class="list-group">
+                {% for response in fin_responses %}
+                    {% if reply.id == response.reply %} 
+                        <li class="list-group-item" style="width: 700px">
+                            <div style="margin-left: 30%;">
+                                <h6><a style="color:black; text-decoration: none;" id="response{{response.id}}">
+                                    Autor: <a href="{{ url_for('profile', author=final_resp_author_ids[k.value]) }}">{{ fin_resp_author_username[k.value] }}</a> [Karma: {{ fin_resp_author_karma[k.value] }}]  
+                                    | Vytvořeno: {{ response.date.strftime('%d. %m. %Y, %H:%M:%S') }}</a>
+                                    {% if fin_visited_responses[k.value] == 1 %} 
+                                        <b><img src="{{ url_for('static', filename='images/unread_icon.png') }}" alt="Nové příspěvky" style="width: 15px;" title="Nové příspěvky!"></b>
+                                    {% endif %}
+
+                                    <!-- Delete button -->
+                                    {% if response.author == fcurrent_user.id or "admin" in roles %}
+                                    <form action="{{ url_for('delete_response', respid=response.id, courseshrt=courseshrt, year=year, questionid=question.id, replyid=response.reply) }}" method='POST'>
+                                        <button type="submit" class="btn btn-link" style="float: right;">Smazat</button>
+                                    </form>
+                                    {% endif %}
+
+                                </h6>  
+                                <p>{{ response.message }}</p>
+                            </div>
+                            {% set k.value = k.value + 1 %}
+                        </li>    
+                    {% endif %}
+                {% endfor %}
+                </ul>    
+            </li>
+            {% set i.value = i.value + 1 %}
+        {% endfor %}
+    </ul>
+    {% endif %}
+    
+
+    <!-- Thread of non correct replies -->
+    <ul class="list-group">
+        {% set i = namespace(value=0) %}
+        {% set k = namespace(value=0) %}
+        {% for reply in replies %}
+        
+        {% if reply.correct %}
+        <li class="list-group-item" style="border-style: solid; border-radius: 6px; border-width: 4px; border-color: #00FF00;">
+        {% else %}
+        <li class="list-group-item">
+        {% endif %}
+            <!-- Delete button: user authentication needed -->
+            {% if reply.author == fcurrent_user.id or "admin" in roles %}
+                <form action="{{ url_for('delete_reply', replyid=reply.id, courseshrt=courseshrt, year=year, questionid=question.id) }}" method='POST' >
+                    <button type="submit" value="replyid" class="btn btn-danger" style="float: right;">Smazat</button>
+                </form>
+            {% endif %}
+
+            <!--Mark reply as correct-->
+            {% if (fcurrent_user.id == course.author or "admin" in roles) and question.solved and reply.correct != True %}
+                <form action="{{ url_for('mark_reply_correct',courseshrt=courseshrt,year=year,questionid=question.id,replyid=reply.id,status=1) }}" method="POST">
+                    <button type="submit" class="btn btn-success" style="float: right; ">Správně</button>
+                </form>
+            {% endif %}
+
+            <!--Unark reply as correct-->
+            {% if (fcurrent_user.id == course.author or "admin" in roles) and question.solved and reply.correct == True %}
+                <form action="{{ url_for('mark_reply_correct',courseshrt=courseshrt,year=year,questionid=question.id,replyid=reply.id,status=0) }}" method="POST">
+                    <button type="submit" class="btn btn-danger" style="float: right;">Nesprávně</button>
+                </form>
+            {% endif %}
+
+            <!--Mark reply as solution-->
+            {% if (fcurrent_user.id == course.author or "admin" in roles) and question.solved and reply.solution != True and fin_replies|length == 0 %}
+                <form action="{{ url_for('mark_reply_solved',courseshrt=courseshrt,year=year,questionid=question.id,replyid=reply.id,status=1) }}" method="POST">
+                    <button type="submit" class="btn btn-primary" style="float: right;">Označit jako řešení</button>
+                </form>
+            {% endif %}
+
+            <!--Unmark reply as solution-->
+            {% if (fcurrent_user.id == course.author or "admin" in roles) and question.solved and reply.solution == True %}
+                <form action="{{ url_for('mark_reply_solved',courseshrt=courseshrt,year=year,questionid=question.id,replyid=reply.id,status=0) }}" method="POST">
+                    <button type="submit" class="btn btn-danger" style="float: right;">Zrušit označení řešení</button>
+                </form>
+            {% endif %}
+
+                
+            <h6>
+                Autor:<a href="{{ url_for('profile', author=rep_author_ids[i.value]) }}"> {{ rep_author_username[i.value] }}</a> [Karma: {{  rep_author_karma[i.value] }}]
+                | Vytvořeno: {{ reply.date.strftime('%d. %m. %Y, %H:%M:%S') }}
+                {% if visited_replies[i.value] == 1 %} 
+                    <b><img src="{{ url_for('static', filename='images/unread_icon.png') }}" alt="Nové příspěvky" style="width: 15px;" title="Nové příspěvky!"></b>
+                {% endif %}
+            </h6>
+            
+            <a style="color:black;text-decoration: none;" id="{{reply.id}}"><p>{{ reply.message }}</p></a>
+            <div class="container">
+                <!-- Upvote and downvote buttons: user authentication and functionality needed -->
+                {% if ((not question.solved and status == 2) or (course.author == current_user.id or "admin" in roles)) %}
+                <form action="{{ url_for('upvote_reply', replyid=reply.id, courseshrt=courseshrt, year=year, questionid=question.id, operation='up') }}" method='GET' >
+                    <button type="submit">
+                        {% if rep_upvotes[i.value] == 1 %}
+                        <img src="{{ url_for('static', filename='images/upvote.png') }}" alt="Upvote" width=20 >
+                        {% else %}
+                        <img src="{{ url_for('static', filename='images/upvote_empty.png') }}" alt="Upvote" width=20 >
+                        {% endif %}
+                    </button>
+                </form>
+                {% endif %}
+
+                Hlasy: {{ reply.upvote }}
+
+                {% if (not question.solved and status == 2) or (course.author == current_user.id or "admin" in roles) %}
+                <form action="{{ url_for('upvote_reply', replyid=reply.id, courseshrt=courseshrt, year=year, questionid=question.id, operation='down') }}" method='GET' >
+                    <button type="submit">
+                        {% if rep_upvotes[i.value] == 2 %}
+                        <img src="{{ url_for('static', filename='images/downvote.png') }}" alt="Upvote" width=20 >
+                        {% else %}
+                        <img src="{{ url_for('static', filename='images/downvote_empty.png') }}" alt="Upvote" width=20 >
+                        {% endif %}
+                    </button>
+                </form>
+                {% endif %}
+            </div>
+
+            <!--Checkmark image if reply is correct-->
+                {% if question.solved and reply.solution == True %}
+                    <img src="{{ url_for('static', filename='images/solved.png') }}" alt="Correct reply" width="50px" style="float: right;"/>
+                {% endif %}    
+
+
+            <!-- Response thread -->
+            {% if fcurrent_user.id is defined and not question.solved %}
+                {% if ((fcurrent_user.id != course.author and status == 2) or ("admin" in roles)) %}
+                
+                <!-- New response button -->
+                <div class="row">
+                    <div class="col-lg-3">  
+                        <a href="#newResponse{{ i.value }}" data-toggle="modal" class="btn btn-primary" title="Add Response">
+                            <i class="glyphicon glyphicon-plus-sign"></i> Reagovat
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="modal fade" id="newResponse{{ i.value }}">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                <h4 class="modal-title">Reagovat</h4>    
+                            </div>
+                            <div class="modal-body">
+                                <label>Reakce (Max delka 300 znaku)</label>
+                                <form action="{{ url_for('add_response', courseshrt=courseshrt, year=year, questionid=question.id, reply=reply.id) }}" method='POST'>
+                                    <input name="message"  class="form-control" placeholder="Reakce">
+                                    <input type="submit" class="btn btn-primary" value="Potvrdit">
+                                </form>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Zavřít</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+            {% endif %}
+
+            <hr>
+            <ul class="list-group">
+                {% for response in responses %}
+                    {% if reply.id == response.reply %} 
+                    <li class="list-group-item" style="width: 700px">
+                        <div style="margin-left: 30%;">
+                            <h6><a style="color:black; text-decoration: none;" id="response{{response.id}}">
+                                Autor: <a href="{{ url_for('profile', author=resp_author_ids[k.value]) }}">{{ resp_author_username[k.value] }}</a> [Karma: {{ resp_author_karma[k.value] }}]  
+                                | Vytvořeno: {{ response.date.strftime('%d. %m. %Y, %H:%M:%S') }}</a>
+                                {% if visited_responses[k.value] == 1 %} 
+                                    <b><img src="{{ url_for('static', filename='images/unread_icon.png') }}" alt="Nové příspěvky" style="width: 15px;" title="Nové příspěvky!"></b>
+                                {% endif %}
+
+                                <!-- Delete button -->
+                                {% if response.author == fcurrent_user.id or "admin" in roles %}
+                                <form action="{{ url_for('delete_response', respid=response.id, courseshrt=courseshrt, year=year, questionid=question.id, replyid=response.reply) }}" method='POST'>
+                                    <button type="submit" class="btn btn-link" style="float: right;">Smazat</button>
+                                </form>
+                                {% endif %}
+
+                            </h6>  
+                            <p>{{ response.message }}</p>
+                        </div>
+                        {% set k.value = k.value + 1 %}
+                    </li>    
+                    {% endif %}
+                {% endfor %}
+            </ul>    
+
+        </li>
+        {% set i.value = i.value + 1 %}
+
+        {% endfor %}
+    </ul>
+
+
+<!--REPLY--THREAD-->
+
+    {% if fcurrent_user.id is defined and already_replied == 0 and not question.solved %}
+        {% if ((fcurrent_user.id != course.author and status == 2 and fcurrent_user.id != q_author_id) or ("admin" in roles)) %}
+        <!-- New reply button -->
+        <div class="row">
+            <div class="col-lg-3">  
+                <a href="#newReply" data-toggle="modal" class="btn btn-primary" title="Add Reply">
+                    <i class="glyphicon glyphicon-plus-sign"></i> Přidat odpověď
+                </a>
+            </div>
+        </div>
+
+        <!-- Modal for adding replies to a question-->
+        <div class="modal fade" id="newReply">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title">Přidat odpověď</h4>    
+                    </div>
+                    <div class="modal-body">
+                        <form method="POST" role="form">
+                            {{ form.csrf_token }}
+                            <div class="form-group">
+                                <label>Odpověď (Max delka 600 znaku)</label>
+                                {{ form.message(class="form-control", rows="5", placeholder="Odpověď") }}
+                            </div>    
+                            <button type="submit" class="btn btn-primary">Potvrdit</button>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Zavřít</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+    {% elif fcurrent_user is defined and question.solved and already_replied == 0 %}
+        {% if ((fcurrent_user.id == course.author) or ("admin" in roles)) and fin_replies|length == 0 %}
+        <!-- New reply button -->
+        <div class="row">
+            <div class="col-lg-3">  
+                <a href="#newFinalReply" data-toggle="modal" class="btn btn-primary" title="Add Reply">
+                    <i class="glyphicon glyphicon-plus-sign"></i> Přidat finální odpověď
+                </a>
+            </div>
+        </div>
+
+        
+        <!-- Modal for adding a final reply -->
+        <div class="modal fade" id="newFinalReply">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title">Přidat finální odpověď</h4>    
+                    </div>
+                    <div class="modal-body">
+                        <form method="POST" role="form">
+                            {{ form.csrf_token }}
+                            <div class="form-group">
+                                <label>Odpověď (Max delka 600 znaku)</label>
+                                {{ form.message(class="form-control", rows="5", placeholder="Odpověď") }}
+                            </div>    
+                            <button type="submit" class="btn btn-primary">Potvrdit</button>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Zavřít</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+    {% endif %}
+{% endblock %}

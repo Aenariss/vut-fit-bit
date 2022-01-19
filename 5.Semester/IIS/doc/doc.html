@@ -1,0 +1,92 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<title>Projekt IIS</title>
+<style type="text/css">
+    table { border-collapse: collapse; }
+    td, th { border: 1px solid black; padding: 0.3em 0.5em; text-align: left; }
+    dt { font-weight: bold; margin-top: 0.5em; }
+</style>
+</head>
+<body>
+
+<!-- Zkontrolujte prosím nastavení kódování v hlavičce dokumentu 
+ podle použitého editoru -->
+
+<h1>Fituška-v2: sdílení a řešení testových otázek studenty</h1>
+
+<dl>
+<dt>Autoři</dt>
+<dd>Vojtěch Fiala 
+    <a href="mailto:xfiala61@stud.fit.vutbr.cz">xfiala61@stud.fit.vutbr.cz</a> - <br>
+    Organizace, přidělování úkolů, návrh aplikace, dokumentace, pomocné funkce, přihlašování uživatelů, mazání uživatelů,
+    uživatelovy kurzy/otázky, zobrazování nepřečtených položek, žebříčky, vyhledávání otázek, nastavení kategorie otázek,
+    registrování na kurz, schvalování kurzů, otázky/odpovědi/diskuze k odpovědím, front-end design, databáze, hosting, testování
+</dd><br>
+<dd>Adam Políček
+    <a href="mailto:xpolic05@stud.fit.vutbr.cz">xpolic05@stud.fit.vutbr.cz</a> -  <br>
+    Přihlašování uživatelů, udělování hlasů, správné odpovědi, testování
+</dd><br>
+<dd>David Svatý
+    <a href="mailto:xsvaty01@stud.fit.vutbr.cz">xsvaty01@stud.fit.vutbr.cz</a> - <br>
+    Front-end design, otázky/odpovědi/diskuze k odpovědím, správné odpovědi, kategorie otázek, titulní strana, testování, ER Diagram
+</dd>
+<dt>URL aplikace (Projekt běží na vlastním VPS z důvodu nekompatibility použité technologie (Flask) a serveru Eva)</dt>
+<dd><a href="http://104.45.58.127:5000/">http://104.45.58.127:5000/</a></dd>
+</dl>
+
+<h2>Uživatelé systému pro testování</h2>
+<p>Uveďte prosím existující zástupce <strong>všech rolí uživatelů</strong>.</p>
+<table>
+<tr><th>Login (E-mail)</th><th>Heslo</th><th>Role</th></tr>
+<tr><td>admin@admin.com</td><td>admin123456</td><td>Administrátor</td></tr>
+<tr><td>mod@mod.com</td><td>mod123456</td><td>Moderátor</td></tr>
+<tr><td>ucitel@teacher.com</td><td>123456</td><td>Učitel všech kurzů</td></tr>
+<tr><td>pepa@zdepa.com</td><td>123456</td><td>Běžný student</td></tr>
+</table>
+
+
+<div>
+    <p>IS implementuje všechny případy užití definované zadáním a nabízí i pár navíc:</p>
+    <p style="margin-left: 2em;">Výpis otázek položených konkrétním uživatelem</p>
+    <p style="margin-left: 2em;">Výpis kurzů vyučovaných konkrétním uživatelem</p>
+    <p style="margin-left: 2em;">Udělování jak kladných, tak i "záporných" hlasů</p>
+    <p style="margin-left: 2em;">Indikace nových příspěvků v kurzu/roce/otázkách/odpovědích/diskuzi k odpovědím</p>
+    <p style="margin-left: 2em;">Vyučující kurzu nemusí (ale může) psát svoji finální odpověď, ale může jako finální označit jednu z již existujících odpovědí</p>
+</div> 
+
+<h2>Implementace</h2>
+<div>
+<p><em>./app.py</em>: Hlavní aplikace implementující back-end jednotlivých stránek</p>
+<p><em>./src/inputFields.py</em>: Definice uživatelských formulárů</p>
+<p><em>./src/localization.py</em>: Lokalizace výpisů z frameworku (flask)</p>
+<p><em>./src/utils.py</em>: Pomocné funkce</p>
+</div>
+
+<h3>Databáze</h3>
+
+ER diagram databáze:
+<div>
+    <img src="ER-Diagram.png" width="1000", height="400">
+</div>
+
+
+<h2>Instalace</h2>
+Níže následuje stručný popis instalace. Více informace je pak možno zjistit v souboru README.html v kořenovém adresáři.
+<ul>
+<li>Instalace na server probíhá nahráním celého repozitáře projektu na vlastní VPS, kde je následně web spušten příkzem <em>flask run</em></li>
+<li>Vizte soubor <em>requirements.py</em> obsahující požadované python knihovny.</li>
+<li>Databáze je inicializována po připojení na vlastní databázový server, kde je následně spušten skript <em>./sql/sql_init.sql</em></li>
+</ul>
+
+<h2>Známé problémy</h2>
+<p>Toto není problém na straně naší aplikace, nýbrž na straně databázového hostingu (MS Azure), kdy může ve výjimečných případech dojít k 
+    nezpracování požadavku zaslaného skrz formulář na server z důvodu vytíženosti CPU, které je sdíleno mezi vícero servery. 
+    V takovém případě prosím zašlete formulář znovu.
+</p>
+
+</body>
+</html>

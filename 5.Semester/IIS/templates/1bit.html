@@ -1,0 +1,168 @@
+{% extends "base.html" %}
+
+{% block title %} Fituška 2.0 {% endblock %}
+{% block pagetitle %}Fituška 2.0 | {{ title }}{% endblock %}
+
+{% block body %}
+
+    <div class="top-bar">
+        <h1>{{ title }}</h1>
+    </div>
+    <hr>
+    
+    {% if status == 1 %}
+        <div class="alert alert-danger text-center">
+            Pokusili jste se pridat kurz s jiz existujici zkratkou!
+        </div>
+    {% elif status == 2 %}
+        <div class="alert alert-danger text-center">
+            Vami zadana hodnota je neplatna! Overte si, ze splnujete limity vypsane pri tvorbe kurzu!
+        </div>
+    {% endif %}
+    
+    {% if ("mod" in roles) or ("admin" in roles) %}
+    <div style="font-size: 2rem;">Schválené kurzy</div>
+    {% endif %}
+    
+    <ol>
+        {% set count = namespace(value=0) %}
+        {% for course in courses %}
+
+        {% if course.author == fcurrent_user.id or ("admin" in roles) %}
+        <!-- Delete button -->
+        <form action="{{ url_for('delete_course', courseid=course.shortcut, coursegrade=course.grade) }}" method='POST' >
+            <button type="submit" class="btn btn-danger" style="float: right;">Smazat</button>
+        </form>
+        {% endif%}
+
+        {% if ("mod" in roles or "admin" in roles) %}
+        <!-- Disapprove button -->
+        <form action="{{ url_for('approve_course', courseid=course.shortcut, coursegrade=course.grade, status=0) }}" method='GET' >
+            <button type="submit" class="btn btn-success" style="float: right;">Zrušit schválení</button>
+        </form>
+        {% endif %}
+        <li class="row">
+                <h4 class="Title"> <a href="#ref{{ count.value }}" data-toggle="collapse">{{ course.shortcut }} &nbsp;–&nbsp; {{ course.name }}</a> | 
+                    Vyučující: <a href="{{ url_for('profile', author=author_id[count.value]) }}">{{ author_username[count.value] }}</a> &nbsp;[Karma: {{ author_karma[count.value] }}]
+                    {% if unread_courses[count.value] == 1 %} 
+                        <b><img src="{{ url_for('static', filename='images/unread_icon.png') }}" alt="Nové příspěvky" style="width: 15px;" title="Nové příspěvky!"></b> 
+                    {% endif %}
+                </h4>
+                <div id="ref{{ count.value }}" class="collapse">
+                    <ol>
+                        {% set count_years = namespace(value=0) %}
+                        {% for i in years %}
+                        <li class="row">
+                            <div class="label" id="forum">
+                                <a href="{{ url_for('question',courseshrt=course.shortcut, year=i) }}" class="btn btn-link">Školní rok {{ i-1 }}/{{i}} &nbsp;
+                                    {% if new_years[count.value][count_years.value] == 1 %}
+                                        <b><img src="{{ url_for('static', filename='images/unread_icon.png') }}" alt="Nové příspěvky" style="width: 15px;" title="Nové příspěvky!"></b> 
+                                    {% endif %}
+                                </a>
+                            </div>
+                        </li>
+                        {% set count_years.value = count_years.value + 1 %}
+                        {% endfor %}
+                    </ol>
+                </div>    
+        </li>
+        {% set count.value = count.value + 1 %}
+        {% endfor %}
+    </ol>
+
+    {% if ("mod" in roles) or ("admin" in roles) %}
+    <!-- Unaccepted courses -->
+    <div style="font-size: 2rem;">Neschválené kurzy</div>
+    {% endif %}
+
+    <ol>
+        {% set count = namespace(value=0) %}
+        {% for course in not_acc_courses %}
+        {% if ("mod" in roles) or ("admin" in roles) or fcurrent_user.id==course.author %}
+
+        {% if course.author == fcurrent_user.id or ("admin" in roles) %}
+        <!-- Delete button -->
+        <form action="{{ url_for('delete_course', courseid=course.shortcut, coursegrade=course.grade) }}" method='POST' >
+            <button type="submit" class="btn btn-danger" style="float: right;">Smazat</button>
+        </form>
+        {% endif%}
+
+        <!-- Approve button -->
+        {% if ("mod" in roles or "admin" in roles) %}
+        <form action="{{ url_for('approve_course', courseid=course.shortcut, coursegrade=course.grade, status=1) }}" method='GET' >
+            <button type="submit" class="btn btn-success" style="float: right;">Schválit</button>
+        </form>
+        {% endif %}
+
+        <li class="row">
+                <h4 class="Title"> <a href="#u_ref{{ count.value }}" data-toggle="collapse">{{ course.shortcut }} &nbsp;–&nbsp; {{ course.name }} </a>| 
+                    Vyučující: <a href="{{ url_for('profile', author=author_id_not_acc[count.value]) }}">{{ author_username_not_acc[count.value] }}</a> [Karma: {{ author_karma_not_acc[count.value] }}]
+                    {% if unread_courses_not_acc[count.value] == 1 %} 
+                        <b><img src="{{ url_for('static', filename='images/unread_icon.png') }}" alt="Nové příspěvky" style="width: 15px;" title="Nové příspěvky!"></b> 
+                    {% endif %}
+
+                    {% if course.author == fcurrent_user.id and course.approved == False %}
+                        <b> &nbsp -- Čeká se na schválení! </b> 
+                    {% endif %}
+                </h4>
+                <div id="u_ref{{ count.value }}" class="collapse">
+                    <ol>
+                        {% set count_years = namespace(value=0) %}
+                        {% for i in years %}
+                        <li class="row">
+                            <div class="label" id="forum">
+                                <a href="{{ url_for('question',courseshrt=course.shortcut, year=i) }}" class="btn btn-link">Školní rok {{ i-1 }}/{{i}} &nbsp;
+                                    {% if new_years_2[count.value][count_years.value] == 1 %}
+                                        <b><img src="{{ url_for('static', filename='images/unread_icon.png') }}" alt="Nové příspěvky" style="width: 15px;" title="Nové příspěvky!"> </b> 
+                                    {% endif %}
+                                </a>
+                            </div>
+                        </li>
+                        {% set count_years.value = count_years.value + 1 %}
+                        {% endfor %}
+                    </ol>
+                </div>    
+        </li>
+        {% endif %}
+        {% set count.value = count.value + 1 %}
+        {% endfor %}
+    </ol>
+    
+    {% if fcurrent_user.is_authenticated %}
+    <div class="row">
+        <div class="col-lg-3">
+            <a href="#newModal" data-toggle="modal" class="btn btn-primary" title="Add Thread">
+                <i class="glyphicon glyphicon-plus-sign"></i> Přidat kurz
+            </a>
+        </div>
+    </div>
+
+    <div class="modal fade" id="newModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title">Přidat kurz</h4>
+                </div>
+                <div class="modal-body">
+                    <form method="POST" role="form">
+                        {{ form.csrf_token }}
+                        <div class="form-group">
+                            <label for="shortcut">Zkratka (Max 10 znaků)</label>
+                            {{ form.shortcut(class="form-control", placeholder="Zkratka kurzu") }}
+                        </div>
+                        <div class="form-group">
+                            <label for="name">Název kurzu (Max 100 znaků)</label>
+                            {{ form.name(class="form-control", placeholder="Název kurzu") }}
+                        </div>
+                        <button type="submit" class="btn btn-primary">Potvrdit</button>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Zavřít</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+{% endblock %}

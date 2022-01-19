@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% block pagetitle %}Fituška 2.0 | Otázky uživatele {{ username }}{% endblock %}
+{% block title %} Fituška 2.0 | Otázky uživatele <a href={{ url_for('profile', author=id) }}> {{ username }}</a> {% endblock %}
+
+{% block body %}
+
+{% if questions == None %}
+<div class="text-center">Uživatel zatím nepoložil žádné otázky</div>
+{% elif questions|length == 0 %}
+<div class="text-center">Uživatel zatím nepoložil žádné otázky</div>
+{% else %}
+
+    <ul class="list-group"> 
+        {% set i = namespace(value=0) %}
+        {% for question in questions %}
+        <li class="list-group-item">
+            <a href="{{ url_for('thread', courseshrt=question.course, year=question.year, questionid=question.id) }}">
+                <h4 class="Title">{{ question.title }}</h4>
+            </a>
+            <h5>Course: {{ question.course}} | Author: {{ username }} | Category: {{ question.category }} | Created: {{ question.date.strftime('%d. %m. %Y %H:%M:%S') }} 
+                | Last Updated: {% if question.lastUpdated != None %}
+                    {{question.lastUpdated.strftime('%d. %m. %Y %H:%M:%S')}}
+                                {% endif %}
+                {% if new_questions[i.value] == 1 %}
+                    <b><img src="{{ url_for('static', filename='images/unread_icon.png') }}" alt="Nové příspěvky" style="width: 15px;" title="Nové příspěvky!"></b> 
+                {% endif %}
+            </h5>
+            <br>
+            <p>{{ question.body }}</p>
+        </li>
+        {% set i.value = i.value + 1 %}
+        {% endfor %}
+    </ul>
+
+{% endif %}
+{% endblock %}

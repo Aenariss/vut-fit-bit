@@ -1,0 +1,68 @@
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    margin: 10px 60px;
+    margin-top: 0px;
+}
+
+.container a:link, .container a:visited {
+    text-decoration: none;
+    color: #00a9e0;
+}
+
+h1 {
+    font-family: 'Times New Roman', Times, serif;
+    padding: 0 40px;
+    font-size: 200%;
+}
+
+.top-bar {
+    background-color:#2cb9f1;
+    border-style: hidden;
+    border-radius: 6px;
+    padding: 0 40px;
+}
+
+.title {
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 150%;
+}
+
+.image {
+    display: none;
+    margin-left: 1cm;
+    margin-right: auto;
+    width: 5%;
+    padding-bottom: 5px;
+}
+
+.page-header {
+    text-align: center;
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 250%;
+}
+
+.label {
+    font-size: 150%;
+    font-family: 'Times New Roman', Times, serif;
+    margin: auto;
+}
+
+.right {
+    text-align: right;
+    float: right;
+}
+
+li {
+    list-style-type: none;
+    padding-bottom: 1em;
+}
+
+@media only screen and (min-width: 1366px) { 
+/* Na tabletech a mobilech by se logo muselo dimenzovat... takhle to bude vic clean */
+    .image {
+        display: inline;
+    }
+}

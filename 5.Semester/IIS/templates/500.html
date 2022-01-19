@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block pagetitle %}Fituška 2.0 | Vnitřní chyba!{% endblock %}
+{% block title %} Fituška 2.0 | {{ courseshrt }} {% endblock %}
+
+{% block body %}
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div style="padding: 40px 15px; text-align: center">
+                    <h1>
+                        Oops! Došlo k chybě!
+                    </h1>
+                    <h2>
+                        Error 500 - Interní chyba serveru!
+                    </h2>
+                    <div class="error-details">
+                        Noxx's note: Zjevně jsi při programování udělal něco špatně, zkontroluj error log v konzoli! <br>
+                        Pro běžného uživatele: Toto bys neměl vidět, protože by to nemělo nikdy nastat. Jak smutné.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block pagetitle %}Fituška 2.0 | Žebříček kurzu {{ courseshrt }}{% endblock %}
+{% block title %} Fituška 2.0 | <a href="{{ url_for('question', courseshrt=courseshrt, year=year) }}">{{ courseshrt }}</a> {% endblock %}
+
+{% block body %}
+
+<div class="text-center h2">
+Žebříček nejlepších uživatelů pro kurz <a href="{{ url_for('question', courseshrt=courseshrt, year=year) }}"> {{ courseshrt }}</a>
+</div>
+
+{% if karma_list|length == 0 %}
+<div class="text-center h4">
+    V kurzu ještě nikdo nezískal žádnou karmu
+</div>
+{% else %}
+<div class="row justify-content-center">
+    <table class="table" style="margin: auto; width: 50% !important;">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Uživatel</th>
+            <th scope="col">Karma</th>
+          </tr>
+        </thead>
+        <tbody>
+{% set i = namespace(value=1) %}
+{% for user in karma_list %}
+    <tr>
+        <th scope="row">{{ i.value }}</th>
+        <td><a href="{{ url_for('profile', author=user_ids[i.value-1]) }}"> {{ user[0]}} </a></td> <td>{{ user[1] }}</td>
+    </tr>
+{% set i.value = i.value + 1 %}
+{% endfor %}
+</tbody>
+</table>
+</div> 
+{% endif %}
+
+{% endblock %}

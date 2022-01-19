@@ -1,0 +1,99 @@
+{% extends "base.html" %}
+
+{% block pagetitle %}Fituška 2.0{% endblock %}
+{% block title %}Fituška 2.0{% endblock %}
+
+{% block body %}
+
+    {% if "admin" in roles and status == 1 %}
+    <div class="text-center">
+        <form action="{{ url_for('add_new_year') }}" method="POST">   
+            <button type="submit" value="addyr" class="btn btn-primary">Přepnout na nový školní rok</button>
+        </form>
+     </div>
+     {% endif %}
+
+     <div style="display: flex; justify-content:center;">
+        <form action="{{ url_for('users_top') }}" method="GET">   
+            <button type="submit" value="usersTop" class="btn btn-warning">Žebříček nejlepších uživatelů Fitušky</button>
+        </form>
+    </div>
+
+    <div class="jumbotron" style="border-style: solid; border-radius: 6px; border: 3px;">
+        <div class="label" id="1bit"><a href="{{ url_for('firstBIT') }}" class="btn btn-primary btn-lg">1BIT</a></div>
+        <div class="container">
+            <ul class="list-group">
+            <h4>Kurzy: </h4>
+            {% for course in courses %}
+                {% if course.grade == 1 and course.approved %}
+                    <li class="list-group-item"><a href="{{ url_for('question',courseshrt=course.shortcut, year=year) }}" class="btn btn-link">{{ course.shortcut }}</a></li>
+                {% endif %}
+            {% endfor %}
+            </ul>
+        </div>
+    </div>
+
+    <div class="jumbotron" style="border-style: solid; border-radius: 6px; border: 3px;">
+        <div class="label" id="2bit"><a href="{{ url_for('secondBIT') }}" class="btn btn-primary btn-lg">2BIT</a></div>
+        <div class="container">
+            <ul class="list-group">
+            <h4>Kurzy: </h4>
+            {% for course in courses %}
+                {% if course.grade == 2 and course.approved %}
+                    <li class="list-group-item"><a href="{{ url_for('question',courseshrt=course.shortcut, year=year) }}" class="btn btn-link">{{ course.shortcut }}</a></li>
+                {% endif %}
+            {% endfor %}
+            </ul>
+        </div>
+    </div>
+
+    <div class="jumbotron" style="border-style: solid; border-radius: 6px; border: 3px;">
+        <div class="label" id="3bit"><a href="{{ url_for('thirdBIT') }}" class="btn btn-primary btn-lg">3BIT</a></div>
+        <div class="container">
+            <ul class="list-group">
+            <h4>Kurzy: </h4>
+            {% for course in courses %}
+                {% if course.grade == 3 and course.approved %}
+                    <li class="list-group-item"><a href="{{ url_for('question',courseshrt=course.shortcut, year=year) }}" class="btn btn-link">{{ course.shortcut }}</a></li>
+                {% endif %}
+            {% endfor %}
+            </ul>
+        </div>
+    </div>
+
+    <hr>
+
+    <div class="jumbotron" style="border-style: solid; border-radius: 6px; border: 3px;">
+        <div class="label" id="1mit"><a href="{{ url_for('firstMIT') }}" class="btn btn-primary btn-lg">1MIT</a></div>
+        <div class="container">
+            <ul class="list-group">
+            <h4>Kurzy: </h4>
+            {% for course in courses %}
+                {% if course.grade == 4 and course.approved %}
+                    <li class="list-group-item"><a href="{{ url_for('question',courseshrt=course.shortcut, year=year) }}" class="btn btn-link">{{ course.shortcut }}</a></li>
+                {% endif %}
+            {% endfor %}
+            </ul>
+        </div>
+    </div>
+
+    <div class="jumbotron" style="border-style: solid; border-radius: 6px; border: 3px;">
+        <div class="label" id="2mit"><a href="{{ url_for('secondMIT') }}" class="btn btn-primary btn-lg">2MIT</a></div>
+        <div class="container">
+            <ul class="list-group">
+            <h4>Kurzy: </h4>
+            {% for course in courses %}
+                {% if course.grade == 5 and course.approved %}
+                    <li class="list-group-item"><a href="{{ url_for('question',courseshrt=course.shortcut, year=year) }}" class="btn btn-link">{{ course.shortcut }}</a></li>
+                {% endif %}
+            {% endfor %}
+            </ul>
+        </div>
+    </div>
+
+{% endblock %}
+
+<!--
+    pridat footer s aktivnymi uzivatelmi 
+    podla booleanu active (ez shit)
+-->

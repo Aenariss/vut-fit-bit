@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+        <title>Popis instalace a spuštění projektu</title>
+    </head>
+    <body>
+        <h1>Fituška-v2: sdílení a řešení testových otázek studenty</h1>
+
+        <h3>Rozdělení a popis souborů a složek</h3>
+        <div>
+            <p>
+                <em>./doc</em>: Dokumentace k projektu
+            </p>
+            <p>
+                <em>./sql</em>: SQL skript pro inicializaci tabulek databáze
+            </p>
+            <p>
+                <em>./static</em>: Kaskádové styly (css) a používané obrázky
+            </p>
+            <p>
+                <em>./templates</em>: Vzory pro generování HTML stránek s daty získanými z backendu
+            </p>
+            <p>
+                <em>./templates/security</em>: HTML vzory pro přihlášování a registrování uživatelů
+            </p>
+            <p>
+                <em>./src</em>: Pomocné python moduly importované do hlavního programu
+            </p>
+            <p>
+                <em>./app.py</em>: Hlavní kód aplikace zajišťující vykreslování stránek a back-end k nim
+            </p>
+            <p>
+                <em>./README.html</em>: Tento dokument
+            </p>
+            <p>
+                <em>./requirements.txt</em>: Požadované moduly pro fungování aplikace; k jejich stažení lze použít program pip
+            </p>
+        </div>
+        <br><br>
+        <h3>Lokální instalace aplikace</h3>
+        <div>
+            <p>
+                Pro zprovoznění aplikace je nutné mít nainstalovaný python3 (nejlépe verze 3.7 a výše, u starších verzí není kompatibilita zaručena)
+                ,nástroj pip3 (není nutné) a aplikaci Flask.
+                Jednotlivé moduly programem vyžadované je možné nainstalovat například zmíněným programem pip3 a nebo stáhnout ručně.
+                Vyžadované moduly jsou vypsané v souboru <em>requirements.txt</em>. Pro snadnou instalaci skrz pip je možné použít následující příkaz:
+                <em>pip3 install -r requirements.txt</em>
+            </p>
+            <h3>Lokální instalace databáze</h3>
+            <p>
+                Databáze samotná běží na externím serveru a program se na ni akorát napojuje. V případě zájmu o lokální běh databáze je nutné
+                si zprovoznit mysql server, v něm vytvořit databázi <em>iis</em> (A nebo jinou, potom je ale nutno změnit název i v kódu) a změnit 
+                v kódu adresu pro připojení na Vaši lokální. Pro její správnou funkcionalitu je tuto databázi nutno inicializovat použitím skriptu
+                sql_init.sql umístěného ve složce sql tohoto projektu. Tento skript vytvoří tabulky, nastaví správně jejich kódování (pro podporu diakritiky)
+                a naplní je ukázkovými daty.
+            </p>
+            <h3>Spuštění aplikace</h3>
+            <p>
+                Nejjednodušší možnost spuštění aplikace je v kořenovém adresáři napsat příkaz <em>flask run</em>, který implicitně spouští program
+                <em>app.py</em>. Aplikace je poté spuštěna na lokální adrese (localhost či př. 127.0.0.1) na portu 5000. V případě potřeby pro
+                přístupnost serveru z internetu je pak nutno mít otevřený konkrétní port (př. již zmíněný port 5000) a spouštět aplikaci s parametrem
+                <em>--host 0.0.0.0</em>.
+            </p>
+        </div>
+
+    </body>
+</html>

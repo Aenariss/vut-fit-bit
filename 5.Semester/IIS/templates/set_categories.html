@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+
+{% block pagetitle %}Fituška 2.0 | {{ courseshrt }} - Kategorie{% endblock %}
+{% block title %} Fituška 2.0 | <a href="{{ url_for('question', courseshrt=courseshrt, year=year) }}">{{ courseshrt }}</a> {% endblock %}
+
+{% block body %}
+
+{% if status == 1 %}
+    <div class="alert alert-danger text-center">
+        Zadaná položka je moc dlouhá (Nebo naopak zadny text nebyl zadan)! Zkuste kratší (Max 100 znaků) a nebo naopak zadejte nejaky text!
+    </div>
+{% endif %}
+
+<form method="POST" role="form">
+    {{ form.csrf_token }}
+    <div class="row">
+        <div class="col-lg-4 col-lg-offset-4">
+            <label>Název kategorie (Max 100 znaků)</label>
+            <div class="input-group">
+                {{ form.name(class="form-control", placeholder="Zadejte název nové kategorie...") }}
+                <span class="input-group-btn">
+                    <br><button type="submit" class="btn btn-primary">Přidat kategorii</button>
+                </span>
+            </div>
+        </div>
+    </div>
+</form>
+<br>
+
+{% if categories == None %}
+    <p class="text-center" style="font-size: 2rem ;font-family: 'Ubuntu', sans-serif;">Pro tento kurz nejsou zatím definovány žádné kategorie</p>
+{% elif categories|length == 0 %}
+    <p class="text-center" style="font-size: 2rem ;font-family: 'Ubuntu', sans-serif;">Pro tento kurz nejsou zatím definovány žádné kategorie</p>
+{% else %}
+<table class="table" style="margin: auto; width: 50% !important;">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Název kategorie</th>
+        <th scope="col"></th>
+      </tr>
+    </thead>
+    <tbody>
+    {% set i = namespace(value=1) %}
+    {% for category in categories %}
+    <tr>
+    <th scope="row">{{ i.value }}</th>
+        <td style="font-size: 2rem ;font-family: 'Ubuntu', sans-serif;">{{ category.name }}</td>
+        <td>
+        <form action="{{ url_for('delete_category', courseshrt=courseshrt, categoryid=category.id, year=year) }}" method='POST'>
+            <button type="submit" class="btn btn-danger">Smazat</button>
+        </form>
+        </td>
+    </tr>
+    {% set i.value = i.value + 1 %}
+    {% endfor %}
+</tbody>
+</table>
+{% endif %}
+
+{% endblock %}

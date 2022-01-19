@@ -1,0 +1,128 @@
+{% extends "base.html" %}
+
+{% block pagetitle %}Fituška 2.0 | {{ courseshrt }} - Otázky{% endblock %}
+{% block title %} Fituška 2.0 | <a href="{{ url_for('question', courseshrt=courseshrt, year=year) }}">{{ courseshrt }}</a> {% endblock %}
+
+{% block body %}
+
+{% if (err_status == 1) %}
+    <div class="alert alert-danger text-center">
+        Zadaná hodnota je moc dlouhá (A nebo naopak nebyl zadan zadny text)! Zkuste kratší (vizte limity u tvorby otázky) a nebo naopak zadejte nejaky text!
+    </div>
+{% endif %}
+
+<div style="display: flex; justify-content:center;">
+    <form action="{{ url_for('course_top', courseshrt=courseshrt) }}" method="GET">   
+        <button type="submit" value="courseTop" class="btn btn-warning">Žebříček kurzu</button>
+    </form>
+</div>
+
+<div class="row">
+        <div style="display: flex; justify-content:center">
+        {% if fcurrent_user.id == course.author or ("admin" in roles) %}
+                    <form action="{{ url_for('set_categories', courseshrt=courseshrt, year=year) }}">   
+                        <button type="submit" value="addcat" class="btn btn-primary">Upravit kategorie otázek</button>
+                    </form>
+
+            
+                <form action="{{ url_for('check_applicants', courseshrt=courseshrt, year=year) }}">   
+                    <button type="submit" value="addreg" class="btn btn-primary">Upravit studenty kurzu</button>
+                </form>
+        {% endif %}
+
+        {% if fcurrent_user.id != course.author %}
+        
+            {% if status == 0 %}
+                    <form method="POST" action="{{ url_for('register_for_course', courseshrt=courseshrt, year=year, userid=fcurrent_user.id) }}">   
+                        <button type="submit" value="reg4c" class="btn btn-primary btn-md center-block">Zaregistrovat se na kurz</button>
+                    </form>
+            {% elif  status == 1 %}
+                    <p> Žádost na registraci do kurzu jste již podali</p>
+            {% elif status == 2 %}
+                    <p> Již jste členem kurzu</p>
+            {% endif %}
+        </div>    
+        {% endif %}
+</div>    
+<hr>
+
+    <ul class="list-group"> 
+        {% set i = namespace(value=0) %}
+        {% for question in questions %}
+        <li class="list-group-item">
+
+            <!-- Delete button: user authentication needed -->
+            {% if (question.author == fcurrent_user.id) or ("admin" in roles) %}
+                <form action="{{ url_for('delete_question', questionid=question.id, courseshrt=courseshrt, year=year) }}" method='POST' >
+                    <button type="submit" value="questionid" class="btn btn-danger" style="float: right;">Smazat</button>
+                </form>
+            {% endif %}
+            <a href="{{ url_for('thread',courseshrt=courseshrt,year=year,questionid=question.id) }}">
+                <h4 class="Title">{{ question.title }}</h4>
+            </a>
+            <h5>Autor: <a href="{{ url_for('profile', author=author_id[i.value]) }}">{{ username[i.value] }}</a> [Karma: {{ author_karma[i.value] }}]
+                | Kategorie: {{ question.category }} | Vytvořeno: {{ question.date.strftime('%d. %m. %Y %H:%M:%S') }} 
+                | Naposledy upraveno: {% if question.lastUpdated != None %}
+                    {{question.lastUpdated.strftime('%d. %m. %Y %H:%M:%S')}}
+                                {% endif %}
+                {% if new_questions[i.value] == 1 %}
+                    <b><img src="{{ url_for('static', filename='images/unread_icon.png') }}" alt="Nové příspěvky" style="width: 15px;" title="Nové příspěvky!"></b>
+                {% endif %}
+            </h5>
+            <br>
+            <p>{{ question.body }}</p>
+        </li>
+        {% set i.value = i.value + 1 %}
+        {% endfor %}
+    </ul>
+    <hr>
+
+    {% if fcurrent_user.is_authenticated %}
+    {% if status == 2 or fcurrent_user.id == course.author or ("admin" in roles) %}
+    <div class="row">
+        <div class="col-lg-3">  
+            <a href="#newQuestion" data-toggle="modal" class="btn btn-primary" title="Add Question">
+                <i class="glyphicon glyphicon-plus-sign"></i> Přidat otázku
+            </a>
+        </div>
+    </div>
+    
+    <!-- Modal for adding questions -->
+    <div class="modal fade" id="newQuestion">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title">Přidat otázku</h4>    
+                </div>
+                <div class="modal-body">
+                    <form method="POST" role="form">
+                        {{ form.csrf_token }}
+                        <div class="form-group">
+                            <label for="title">Nadpis (Max 100 znaku)</label>
+                            {{ form.title(class="form-control", placeholder="Nadpis otázky") }}
+                        </div>
+                        <div class="form-group">
+                            <label for="content">Otázka (Max 600 znaku)</label>
+                            {{ form.content(class="form-control", rows=5, placeholder="Otázka") }}
+                        </div>    
+        
+                        <label for="category">Kategorie</label>
+                        <select name="roles" id="roles">
+                            {% for category in categories %}
+                            <option value="{{ category.name }}">{{ category.name }}</option>
+                            {% endfor %}
+                        </select>
+                        <button type="submit" class="btn btn-primary">Potvrdit</button>
+                        
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Zavřít</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+    {% endif %}
+{% endblock %}

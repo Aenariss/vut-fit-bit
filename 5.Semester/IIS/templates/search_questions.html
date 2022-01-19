@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block pagetitle %}Fituška 2.0 | Vyhledávání otázek{% endblock %}
+{% block title %} Fituška 2.0 | Vyhledávání otázek{% endblock %}
+
+{% block body %}
+
+
+<ul class="list-group"> 
+    {% set i = namespace(value=0) %}
+    {% for question in results %}
+    <li class="list-group-item">
+
+
+        <a href="{{ url_for('thread', courseshrt=question.course, year=question.year ,questionid=question.id) }}">
+            <h4 class="Title">{{ question.title }}</h4>
+        </a>
+        <h5>Kurz: <a href="{{ url_for('question',courseshrt=question.course, year=question.year) }}">{{ question.course }}</a> | Rok: {{ question.year | int -1 }}/{{ question.year }} 
+            Autor: <a href="{{ url_for('profile', author=author_id[i.value]) }}">{{ author_username[i.value] }}</a> [Karma: {{ author_karma[i.value] }}] | 
+            Kategorie: {{ question.category }} | Vytvořeno: {{ question.date.strftime('%d. %m. %Y %H:%M:%S') }} 
+            | Naposledy aktivní: {% if question.lastUpdated != None %}
+                {{question.lastUpdated.strftime('%d. %m. %Y %H:%M:%S')}}
+                            {% endif %}
+        </h5>
+        <br>
+        <p>{{ question.body }}</p>
+    </li>
+    {% set i.value = i.value + 1 %}
+    {% endfor %}
+</ul>
+
+
+{% endblock %}

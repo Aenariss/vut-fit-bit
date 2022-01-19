@@ -1,0 +1,78 @@
+{% extends "base.html" %}
+
+{% block pagetitle %}Fituška 2.0 | Zájemci o kurz {{ courseshrt }}{% endblock %}
+{% block title %} Fituška 2.0 | <a href="{{ url_for('question', courseshrt=courseshrt, year=year) }}">{{ courseshrt }}</a> {% endblock %}
+
+{% block body %}
+
+<p class="text-center" style="font-size: 2rem">Uživatelé čekající na potvrzení</p>
+{% if unreg_users|length != 0 %}
+    <br>
+    <table class="table" style="margin: auto">
+        <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Jméno</th>
+            <th scope="col">Přijmení</th>
+            <th scope="col"></th>
+            <th scope="col"></th>
+        </tr>
+        </thead>
+        <tbody>
+{% else %}
+            <p class="text-center">Nikdo nový se do kurzu nehlásí</p>
+{% endif %}
+{% set i = namespace(value=0) %}
+{% for user in unreg_users %}
+    <tr>
+        <th scope="row">{{ i.value+1 }}</th>
+            <td style="font-size: 1.75rem ;font-family: 'Ubuntu', sans-serif;">{{ unreg_names[i.value][0] }}</td>
+            <td style="font-size: 1.75rem ;font-family: 'Ubuntu', sans-serif;">{{ unreg_names[i.value][1] }}</td>
+            <td>
+                <form action="{{ url_for('approve_user', userid=user.user, courseshrt=courseshrt, status=0, year=year) }}" method='POST'>
+                    <button type="submit" class="btn btn-danger" style="float: right;">Ostranit uživatele z kurzu</button>
+                </form>
+            </td>
+            <td>
+                <form action="{{ url_for('approve_user', userid=user.user, courseshrt=courseshrt, status=1, year=year) }}" method='POST'>
+                    <button type="submit" class="btn btn-success" style="float: right;">Schválit</button>
+                </form>
+            </td>
+    </tr>
+    {% set i.value = i.value + 1 %}
+{% endfor %}
+</tbody>
+</table>
+
+<br><br><br><br>
+<p class="text-center" style="font-size: 2rem;">Registrovaní uživatelé</p>
+<br>
+<table class="table" style="margin: auto;">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Jméno</th>
+        <th scope="col">Přijmení</th>
+        <th scope="col"></th>
+        <th scope="col"></th>
+      </tr>
+    </thead>
+    <tbody>
+{% set k = namespace(value=0) %}
+{% for user in reg_users %}
+    <tr>
+        <th scope="row">{{ k.value+1 }}</th>
+        <td style="font-size: 1.75rem ;font-family: 'Ubuntu', sans-serif;">{{ reg_names[k.value][0] }}</td>
+        <td style="font-size: 1.75rem ;font-family: 'Ubuntu', sans-serif;">{{ reg_names[k.value][1] }}</td>
+        <td>
+            <form action="{{ url_for('approve_user', userid=user.user, courseshrt=courseshrt, status=0, year=year) }}" method='POST'>
+                <button type="submit" class="btn btn-danger" style="float: right;">Odstranit uživatele z kurzu</button>
+            </form>
+        </td>
+    </tr>
+    {% set k.value = k.value + 1 %}
+{% endfor %}
+</tbody>
+</table>
+
+{% endblock %}

@@ -1,0 +1,234 @@
+{% extends "base.html" %}
+
+{% block pagetitle %}Fituška 2.0 | Profil uživatele {{ user.username }}{% endblock %}
+{% block title %}Fituška 2.0 | <a href={{ url_for('profile', author=user.id) }}> Profil uživatele {{ user.username }} </a> {% endblock %}
+
+{% block body %}
+
+{% if status == 1 %} 
+    <div class="alert alert-danger text-center">
+        Neplatný email!
+    </div>
+{% elif status == 2 %}
+    <div class="alert alert-danger text-center">
+        Zadané jméno již existuje!
+    </div>
+{% elif status == 3 %}
+    <div class="alert alert-danger text-center">
+        Zadané množství karmy je neplatné!
+    </div>
+{% elif status == 4 %}
+    <div class="alert alert-danger text-center">
+        Zadaná položka je moc dlouhá! Zkuste kratší (Max 80 znaků)
+    </div>
+{% endif %}
+
+<div class="row pad">
+    <div class="col-lg-10  col-lg-offset-1">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                {% if user.id == current_user.id %}
+                <h3 class="panel-title">Moje informace</h3>
+                {% else %}
+                <h3 class="panel-title">Informace</h3>
+                {% endif %}
+            </div>
+            <ul class="list-group">
+                {% if ("admin" in curr_roles or "mod" in curr_roles) or (user.id == current_user.id) %}
+                <li class="list-group-item">
+                    userId: <strong class="pull-right">{{ user.id }}</strong>
+                </li>
+                <li class="list-group-item">
+                    Jméno:
+                    <div style="display:inline" class="pull-right">
+                        <strong name="firstName" class="text"> {{ user.name }} </strong>
+                    </div>
+                </li>
+                <li class="list-group-item">
+                    Příjmení:
+                    <div style="display:inline" class="pull-right">
+                        <strong name="lastName" class="text"> {{ user.surname }} </strong>
+                    </div>
+                </li>
+                {% endif %}
+
+                {% if user.id == current_user.id or "admin" in curr_roles %}
+                <li class="list-group-item">
+                    Email:
+                    
+                    <div style="display:inline" class="pull-right">
+                        <strong name="email" class="text"> {{ user.email }} </strong> 
+                                <a href="#EditEmail" data-toggle="modal" class="btn btn-primary btn-sm" style="padding-top: 3px; padding-bottom: 2px; line-height: 1" title="Upravit Email">
+                                    <i class="glyphicon glyphicon-plus-sign"></i> Upravit
+                                </a>
+                        
+                        <!-- Modal for editing -->
+                        <div class="modal fade" id="EditEmail">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                        <h4 class="modal-title">Upravit email</h4>    
+                                    </div>
+                                    <div class="modal-body">
+                                        <form method="GET" role="form" id="formeditmail" action="{{ url_for('profile', author=user.id) }}">
+                                            <div class="form-group">
+                                                <input type="text" name="editmail" id="editmail" placeholder="Vložte nový email...">
+                                            </div>      
+                                            <button type="submit" class="btn btn-primary">Potvrdit</button>
+                                        </form>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">Zavřít</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+            {% endif %}
+
+                <li class="list-group-item">
+                    Přezdívka:
+                    <div style="display:inline" class="pull-right">
+                        <strong name="username" class="text"> {{ user.username }} </strong>
+
+                        {% if user.id == current_user.id or "admin" in curr_roles %}
+                        <a href="#EditUsername" data-toggle="modal" class="btn btn-primary btn-sm" style="padding-top: 3px; padding-bottom: 2px; line-height: 1" title="Upravit Email">
+                            <i class="glyphicon glyphicon-plus-sign"></i> Upravit
+                        </a>
+                
+                        <!-- Modal for editing -->
+                        <div class="modal fade" id="EditUsername">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                        <h4 class="modal-title">Upravit přezdívku</h4>    
+                                    </div>
+                                    <div class="modal-body">
+                                        <form method="GET" role="form" id="formeditusername" action="{{ url_for('profile', author=user.id) }}">
+                                            <div class="form-group">
+                                                <input type="text" name="editusername" id="editusername" placeholder="Vložte nové uživatelské jméno...">
+                                            </div>      
+                                            <button type="submit" class="btn btn-primary">Potvrdit</button>
+                                        </form>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">Zavřít</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {% endif %}
+                    </div>
+                </li>
+                <li class="list-group-item">
+                    Role:
+                    <div style="display:inline" class="pull-right">
+                        <strong name="roles" class="text">{% for role in role_names %} {{ role }} {% endfor %}</strong>
+                        {% if ("admin" in curr_roles) %}
+                        <a href="#editRole" data-toggle="modal" class="btn btn-primary btn-sm" style="padding-top: 3px; padding-bottom: 2px; line-height: 1" title="Upravit Email">
+                            <i class="glyphicon glyphicon-plus-sign"></i> Upravit
+                        </a>
+                        <!-- Role Editing-->
+                        <div class="modal fade" id="editRole">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                        <h4 class="modal-title">Upravit roli uživatele</h4>    
+                                    </div>
+                                    <div class="modal-body">
+                                        <form action="{{ url_for('change_role', userid=user.id) }}" method='GET'>
+                                            <label for="roles">Upravit roli uživatele:</label>
+                                            <select name="roles" id="roles" >
+                                                <option value="admin">admin</option>
+                                                <option value="mod">mod</option>
+                                                <option selected value="student">student</option>
+                                            </select>
+                                            <br><br>
+                                            <input type="submit" value="Potvrdit">
+                                        </form>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">Zavřít</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {% endif %}
+                    </div>
+                </li>
+                <li class="list-group-item">
+                    Datum registrace: <strong class="pull-right"> {{ user.date.strftime('%d. %m. %Y %H:%M:%S') }}</strong>
+                </li>
+                <li class="list-group-item">
+                    Karma: 
+                    <div style="display:inline" class="pull-right">
+                        <strong name="karma" class="text"> {{ user.karma }} </strong>
+
+                        {% if "admin" in curr_roles %}
+                        <a href="#EditKarma" data-toggle="modal" class="btn btn-primary btn-sm" style="padding-top: 3px; padding-bottom: 2px; line-height: 1" title="Upravit Email">
+                            <i class="glyphicon glyphicon-plus-sign"></i> Upravit
+                        </a>
+                
+                        <!-- Modal for editing -->
+                        <div class="modal fade" id="EditKarma">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                        <h4 class="modal-title">Upravit karmu</h4>    
+                                    </div>
+                                    <div class="modal-body">
+                                        <form method="GET" role="form" id="formeditkarma" action="{{ url_for('profile', author=user.id) }}">
+                                            <div class="form-group">
+                                                <input type="text" name="editkarma" id="editkarma" placeholder="Vložte množství karmy...">
+                                            </div>      
+                                            <button type="submit" class="btn btn-primary">Potvrdit</button>
+                                        </form>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">Zavřít</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {% endif %}
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+{% if (current_user.id == user.id) %}
+<div style="display: flex; justify-content: center;">
+    <form method="GET" role="form" id="myCourses" action="{{ url_for('my_courses', userid=user.id) }}">
+        <button type="submit" class="btn btn-primary">Moje Kurzy</button>
+    </form>
+    <form method="GET" role="form" style="padding-left: 0.75rem;" id="myQuestions" action="{{ url_for('my_questions', userid=user.id) }}">
+        <button type="submit" class="btn btn-primary">Moje Otázky</button>
+    </form>
+</div>
+{% else %}
+<div style="display: flex; justify-content: center;">
+    <form method="GET" role="form" id="myCourses" action="{{ url_for('my_courses', userid=user.id) }}">
+        <button type="submit" class="btn btn-primary">Kurzy</button>
+    </form>
+    <form method="GET" role="form" style="padding-left: 0.75rem;" id="myQuestions" action="{{ url_for('my_questions', userid=user.id) }}">
+        <button type="submit" class="btn btn-primary">Otázky</button>
+    </form>
+</div>
+{% endif %}
+
+{% if ("admin" in curr_roles ) or (current_user.id == user.id) %}
+<div class="right">
+    <form method="POST" role="form" id="deleteaccform" action="{{ url_for('delete_user', userid=user.id) }}">
+        <button type="submit" class="btn btn-danger">Delete Account</button>
+    </form>
+</div>
+{% endif %}
+
+{% endblock %}
