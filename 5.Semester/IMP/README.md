@@ -1,7 +1,7 @@
 # IMP 2021
 Hodnocení předmětu: 6/10
 
-## Výsledek:
+## Výsledek: 83/100
 
 ## Projekt - Světelná tabule - 13/14
 
