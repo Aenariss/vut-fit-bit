@@ -4,6 +4,8 @@
 Repo obsahuje projekty, které jsem za svůj čas na FITu vytvořil.
 U projektů je uvedený i počet získaných bodů, stejně jako výsledná známka z celého předmětu.
 
+Obsah repozitáře slouží jen a pouze ke studijním účelům - projekty se testují na plagiátorství a v případě odhalení hrozí tvrdé tresty.
+
 # Moje zkušenost na FITu & recenze 
 
 ## Předmluva
